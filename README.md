@@ -8,6 +8,12 @@ start test
 sudo ./venv/bin/python3 matrix.py 
 ```
 
+Initialize virtual environment for python
+
+```bash
+python3 -m venv venv
+```
+
 install required packages
 
 
