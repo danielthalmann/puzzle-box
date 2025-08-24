@@ -1,17 +1,9 @@
-import time
-import board
-import digitalio
+from font import AsciiFont
 
-PIN = board.D18
+asc = AsciiFont()
+l = asc.getLetter('B')
 
-print("hello blinky!")
+for y in range(len(l)):
+    print(l[y])
 
-led = digitalio.DigitalInOut(PIN)
-led.direction = digitalio.Direction.OUTPUT
-
-while True:
-    led.value = True
-    time.sleep(0.5)
-    led.value = False
-    time.sleep(0.5)
-    
+#print(font.getLetter("a"))
