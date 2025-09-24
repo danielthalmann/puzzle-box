@@ -1,6 +1,7 @@
 import board
 import neopixel
 import time
+from datetime import datetime
 from font import AsciiFont
 
 
@@ -55,7 +56,7 @@ def clear(pixels):
     for x in range(256):
         pixels[x] = (0, 0, 0)
 
-    pixels.show()
+   # pixels.show()
 
 
 clear(pixels)
@@ -65,7 +66,7 @@ clear(pixels)
 #pixels.show()
 asc = AsciiFont()
 text = asc.getString("START")
-
+time.sleep(2)
 draw(1, 0, text)
 
 
@@ -77,6 +78,7 @@ while(True) :
     counter = datetime(1, 1, 1) + delta
     heure = counter.strftime("%M:%S")
     text = asc.getString(heure)
+    clear(pixels)
     draw(1, 0, text)
     asc.print(text)
     time.sleep(1)
