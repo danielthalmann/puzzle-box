@@ -2563,7 +2563,41 @@ class AsciiFont:
         ".....",
     )
 
-    def getLetter(self, c):
+    def getString(self, s):
+        row = [0 for _ in range(8)]
+        
+        for index_row in range(0, 8):
+            
+            col = [0 for _ in range((6 * (len(s) - 1) + 5))]
+
+            for index_char in range(len(s)):
+
+                c = s[index_char]
+
+                pos = ord(c) * 8
+
+                for l in range(len(self.font[pos + index_row])):
+
+                    if (self.font[pos + index_row][l] == '#'):
+                        col[(index_char * 6) + l] = 1
+                    else:
+                        col[(index_char * 6) + l] = 0
+
+            row[index_row] = col
+        return row
+
+    def print(self, text):
+        
+        for y in range(len(text)):
+            for x in range(len(text[y])):
+                if (text[y][x] == 1):
+                    print('#', end="")
+                else :
+                    print(' ', end="")
+            print('')
+
+
+    def getChar(self, c):
         letter = [0 for _ in range(8)]
         pos = ord(c) * 8
         i = 0
