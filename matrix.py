@@ -64,9 +64,22 @@ clear(pixels)
 #pixels[xy_to_index(0, 31)] = (15, 13, 4)
 #pixels.show()
 asc = AsciiFont()
-text = asc.getString("03:64")
+text = asc.getString("START")
 
 draw(1, 0, text)
+
+
+
+start = datetime.today()
+counter = datetime(1, 1, 1) 
+while(True) :
+    delta = (datetime.today() - start)
+    counter = datetime(1, 1, 1) + delta
+    heure = counter.strftime("%M:%S")
+    text = asc.getString(heure)
+    draw(1, 0, text)
+    asc.print(text)
+    time.sleep(1)
 
 exit()
 
