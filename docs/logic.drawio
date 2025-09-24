@@ -1,0 +1,388 @@
+<mxfile host="65bd71144e">
+    <diagram id="F9MB3DPk1iDu4GyG0oBZ" name="Page-initial">
+        <mxGraphModel dx="1085" dy="990" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="16" value="état initial" style="rounded=0;whiteSpace=wrap;html=1;align=right;verticalAlign=top;fontStyle=1;spacingRight=10;spacingTop=10;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="80" width="360" height="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="2" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="ellipse;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="100" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="3" target="50">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="On affiche start sur l&#39;affichage" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="160" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="non" style="edgeStyle=none;html=1;" edge="1" parent="1" source="5" target="7">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="5" target="10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Test si &lt;br&gt;bouton &lt;br&gt;pressé ?" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="248.75" y="350" width="92.5" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="7" target="5">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="445" y="320"/>
+                            <mxPoint x="295" y="320"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="On attend le start du jeu avec un bouton latéral" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="385" y="365" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="10" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Le compteur démarre" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="480" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="12" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="On démarre la musique d&#39;ambiance 1" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="560" width="125" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="14" target="17">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Passe à l&#39;état chambre" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="645" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="735" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="50" target="5">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="Les leds sont passés au rouge" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="240" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="-TwuG4o9dbh05HOJ7MIV" name="Page-chambre">
+        <mxGraphModel dx="766" dy="967" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-1" value="état chambre" style="rounded=0;whiteSpace=wrap;html=1;align=right;verticalAlign=top;fontStyle=1;spacingRight=10;spacingTop=10;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="80" width="380" height="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-2" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-3" target="A5ZPb4_VLUCsGsAMaF4Z-8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-3" value="" style="ellipse;" vertex="1" parent="1">
+                    <mxGeometry x="275" y="100" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-4" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="735" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-5" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-8" target="A5ZPb4_VLUCsGsAMaF4Z-10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-6" value="Ouvert" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="A5ZPb4_VLUCsGsAMaF4Z-5">
+                    <mxGeometry x="-0.4825" y="2" relative="1" as="geometry">
+                        <mxPoint x="14" y="2" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-7" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-8" target="A5ZPb4_VLUCsGsAMaF4Z-14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-8" value="Test&lt;br&gt;interrupteur maniétique" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="169" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-9" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-10" target="A5ZPb4_VLUCsGsAMaF4Z-18">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-10" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;On démarre la musique d&#39;ambiance 2&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="179" width="130" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-11" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-14" target="A5ZPb4_VLUCsGsAMaF4Z-16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-12" value="oui" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="A5ZPb4_VLUCsGsAMaF4Z-11">
+                    <mxGeometry x="-0.2058" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-13" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-14" target="A5ZPb4_VLUCsGsAMaF4Z-21">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="288" y="395" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-14" value="5 / 10 min.&lt;br&gt;passés ?" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="265" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-15" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="417" y="334.9999999999999" as="sourcePoint"/>
+                        <mxPoint x="291" y="410" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="417" y="360"/>
+                            <mxPoint x="289" y="360"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-16" value="augmente le volume de musique" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="275" width="92" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-17" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-18" target="A5ZPb4_VLUCsGsAMaF4Z-4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-18" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;passe à l&#39;état psychiatre&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="445" y="345" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-19" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-21" target="A5ZPb4_VLUCsGsAMaF4Z-23">
+                    <mxGeometry x="-0.3684" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-20" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-21" target="A5ZPb4_VLUCsGsAMaF4Z-26">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-21" value="Test si les switchs sont&lt;br&gt;&amp;nbsp;en ordre" style="rhombus;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="410" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-22" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="419" y="480" as="sourcePoint"/>
+                        <mxPoint x="291" y="520" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="419" y="500"/>
+                            <mxPoint x="289" y="500"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-23" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;passe la led témoin du rouge au vert&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="366" y="420" width="104" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-24" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-26" target="A5ZPb4_VLUCsGsAMaF4Z-28">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-25" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-26" target="A5ZPb4_VLUCsGsAMaF4Z-33">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-26" value="Test si les&lt;br&gt;câbles sont&lt;br&gt;connectés" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="520" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-27" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-33" target="A5ZPb4_VLUCsGsAMaF4Z-30">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="290" y="610"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-28" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;passe la led témoin du rouge au vert&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="365" y="530" width="104" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-29" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-30" target="A5ZPb4_VLUCsGsAMaF4Z-8">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="220" y="748"/>
+                            <mxPoint x="220" y="150"/>
+                            <mxPoint x="288" y="150"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-30" value="Reprend les tests" style="whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="727" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-31" value="" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-28" target="A5ZPb4_VLUCsGsAMaF4Z-33">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="417" y="590" as="sourcePoint"/>
+                        <mxPoint x="290" y="719" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="417" y="610"/>
+                            <mxPoint x="290" y="610"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-32" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-33" target="A5ZPb4_VLUCsGsAMaF4Z-35">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-33" value="Test bouton &lt;br&gt;reset&lt;br&gt;(interne)" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="627" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-34" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="A5ZPb4_VLUCsGsAMaF4Z-35" target="A5ZPb4_VLUCsGsAMaF4Z-4">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="420" y="750"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="A5ZPb4_VLUCsGsAMaF4Z-35" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;passe à l&#39;état initial&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="637" width="100" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="e_R3JuwQL41vmd00zdHb" name="Page-psychiatre">
+        <mxGraphModel dx="930" dy="1174" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-1" value="état&amp;nbsp;&lt;span style=&quot;color: rgb(0, 0, 0); font-weight: 400; text-align: center;&quot;&gt;psychiatre&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=right;verticalAlign=top;fontStyle=1;spacingRight=10;spacingTop=10;" vertex="1" parent="1">
+                    <mxGeometry x="160" y="80" width="520" height="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-2" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="6P_9f3Ew2YC15SR7I2HP-3" target="6P_9f3Ew2YC15SR7I2HP-21">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="250" y="176" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-3" value="" style="ellipse;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="100" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-4" value="" style="shape=sumEllipse;perimeter=ellipsePerimeter;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="412" y="735" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-19" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6P_9f3Ew2YC15SR7I2HP-21" target="6P_9f3Ew2YC15SR7I2HP-23">
+                    <mxGeometry x="-0.3684" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-20" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6P_9f3Ew2YC15SR7I2HP-21" target="6P_9f3Ew2YC15SR7I2HP-26">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-21" value="Test si les switchs sont&lt;br&gt;&amp;nbsp;en ordre" style="rhombus;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="177" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-1" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="6P_9f3Ew2YC15SR7I2HP-23" target="6P_9f3Ew2YC15SR7I2HP-26">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="380" y="270"/>
+                            <mxPoint x="250" y="270"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-23" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;passe la led témoin du rouge au vert&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="328" y="187" width="104" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-24" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6P_9f3Ew2YC15SR7I2HP-26" target="6P_9f3Ew2YC15SR7I2HP-28">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-3" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6P_9f3Ew2YC15SR7I2HP-26" target="wKttNFbRdzwVSbMU5kbq-2">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-26" value="Test si les&lt;br&gt;câbles sont&lt;br&gt;connectés" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="288" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-28" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;passe la led témoin du rouge au vert&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="325" y="298" width="104" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-29" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="6P_9f3Ew2YC15SR7I2HP-30" target="6P_9f3Ew2YC15SR7I2HP-21">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="180" y="705"/>
+                            <mxPoint x="180" y="150"/>
+                            <mxPoint x="250" y="150"/>
+                        </Array>
+                        <mxPoint x="250" y="169" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6P_9f3Ew2YC15SR7I2HP-30" value="Reprend les tests" style="whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="684" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-5" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-2" target="wKttNFbRdzwVSbMU5kbq-4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-4" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-2" target="DXd6s6xHSMrLh10oTs0z-2">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-2" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 11px;&quot;&gt;Test si les switchs sont&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-size: 11px;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 11px;&quot;&gt;&amp;nbsp;en ordre&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="400" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-7" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-4" target="wKttNFbRdzwVSbMU5kbq-6">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-5" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-4" target="DXd6s6xHSMrLh10oTs0z-2">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="358" y="510"/>
+                            <mxPoint x="250" y="510"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-4" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Test si les&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;câbles sont&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;connectés&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="318" y="400" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-10" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-6" target="wKttNFbRdzwVSbMU5kbq-9">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-6" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-6" target="DXd6s6xHSMrLh10oTs0z-2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="250" y="530" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="475" y="510"/>
+                            <mxPoint x="250" y="510"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-6" value="Test si les&lt;br&gt;4 boutons&lt;br&gt;pressés" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="435" y="400" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-8" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="380" y="358" as="sourcePoint"/>
+                        <mxPoint x="250" y="399" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="380" y="381"/>
+                            <mxPoint x="250" y="381"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-12" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-9" target="wKttNFbRdzwVSbMU5kbq-11">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-9" value="Stop le compteur" style="whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="540" y="410" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-10" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="wKttNFbRdzwVSbMU5kbq-11" target="DXd6s6xHSMrLh10oTs0z-9">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wKttNFbRdzwVSbMU5kbq-11" value="Démarre musique de fin" style="whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="540" y="496" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-1" value="oui" style="edgeStyle=none;html=1;" edge="1" parent="1" source="DXd6s6xHSMrLh10oTs0z-2" target="DXd6s6xHSMrLh10oTs0z-3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-8" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="DXd6s6xHSMrLh10oTs0z-2" target="6P_9f3Ew2YC15SR7I2HP-30">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-2" value="Test bouton &lt;br&gt;reset&lt;br&gt;(interne)" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="585" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-12" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="DXd6s6xHSMrLh10oTs0z-3" target="6P_9f3Ew2YC15SR7I2HP-4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-3" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;passe à l&#39;état initial&lt;/span&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="377" y="595" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-11" value="oui" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DXd6s6xHSMrLh10oTs0z-9" target="DXd6s6xHSMrLh10oTs0z-3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-13" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DXd6s6xHSMrLh10oTs0z-9" target="DXd6s6xHSMrLh10oTs0z-9">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="600" y="690"/>
+                            <mxPoint x="670" y="690"/>
+                            <mxPoint x="670" y="570"/>
+                            <mxPoint x="600" y="570"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="DXd6s6xHSMrLh10oTs0z-9" value="Test si&lt;br&gt;&amp;nbsp;bouton&lt;br&gt;pressés" style="rhombus;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="585" width="80" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
