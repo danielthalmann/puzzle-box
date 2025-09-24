@@ -1,6 +1,7 @@
 import board
 import neopixel
 import time
+import FONT
 
 
 # Exemple : matrice 8x8 sur GPIO18 (broche physique 12)
