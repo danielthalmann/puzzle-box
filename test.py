@@ -1,9 +1,9 @@
 from font import AsciiFont
 
 asc = AsciiFont()
-l = asc.getLetter('B')
+l = asc.getChar('B')
 
-for y in range(len(l)):
-    print(l[y])
-
-#print(font.getLetter("a"))
+text = asc.getString(" START ")
+asc.print(text)
+asc.print(l)
+#print(font.getChar("a"))
