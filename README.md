@@ -12,6 +12,7 @@ Initialize virtual environment for python
 
 ```bash
 python3 -m venv venv
+source ./venv/bin/activate
 ```
 
 install required packages
