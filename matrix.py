@@ -1,7 +1,7 @@
 import board
 import neopixel
 import time
-import FONT
+from font import AsciiFont
 
 
 # Exemple : matrice 8x8 sur GPIO18 (broche physique 12)
@@ -28,63 +28,10 @@ def getMatrix(width, height):
             
             
 matrix = getMatrix(32, 8)
-# 
-for y in range(8):
-    print (matrix[y])
+# ###
+#for y in range(8):
+   ## print (matrix[y])#
 
-
-lettre = {
-    "0":[
-       [1,1,1,1,0],
-       [1,0,0,1,0], 
-       [1,0,0,1,0],
-       [1,0,0,1,0],
-       [1,0,0,1,0],
-       [1,0,0,1,0],
-       [1,1,1,1,0],
-       [0,0,0,0,0],
-    ] ,
-    "1":[
-       [0,0,1,0,0],
-       [0,1,1,0,0], 
-       [1,0,1,0,0],
-       [0,0,1,0,0],
-       [0,0,1,0,0],
-       [0,0,1,0,0],
-       [1,1,1,1,0],
-       [0,0,0,0,0],
-    ] ,
-    "2":[
-       [0,1,1,0,0],
-       [1,0,0,1,0], 
-       [1,0,0,1,0],
-       [0,0,1,0,0],
-       [0,1,0,0,0],
-       [1,0,0,0,0],
-       [1,1,1,1,0],
-       [0,0,0,0,0],
-    ], 
-    "S":[
-       [0,1,1,0,0],
-       [1,0,0,1,0], 
-       [1,0,0,0,0],
-       [0,1,1,0,0],
-       [0,0,0,1,0],
-       [1,0,0,1,0],
-       [0,1,1,0,0],
-       [0,0,0,0,0],
-    ],
-    ":":[
-       [0,0],
-       [0,0], 
-       [1,0],
-       [0,0],
-       [1,0],
-       [0,0],
-       [0,0],
-       [0,0],
-    ]      
-}
 
 
 #exit()
@@ -116,14 +63,11 @@ clear(pixels)
 #pixels[xy_to_index(0, 0)] = (15, 13, 4)
 #pixels[xy_to_index(0, 31)] = (15, 13, 4)
 #pixels.show()
+asc = AsciiFont()
+text = asc.getString("03:64")
 
-draw(1, 0, lettre["0"])
-draw(6, 0, lettre["1"])
-draw(11, 0, lettre["2"])
-draw(14, 0, lettre["S"])
-draw(21, 0, lettre["S"])
-draw(26, 0, lettre["S"])
-draw(17, 0, lettre[":"])
+draw(1, 0, text)
+
 exit()
 
 
