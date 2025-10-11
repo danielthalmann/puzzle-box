@@ -10,11 +10,10 @@ class Deltatime:
 
     @classmethod
     def tick(cls):
-        return (time.time() - cls.last) * 1000
+        return (time.time() - cls.last)
 
     @classmethod
     def update(cls):
-
         cls.last = time.time()
 
     @staticmethod

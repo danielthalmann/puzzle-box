@@ -7,7 +7,9 @@ from deltatime import Deltatime
 class Puzzlebox:
 
     state = 'START'
+
     display = None
+    crono = 0
 
     # GPIO const
     IO_MENU = 13
@@ -49,22 +51,60 @@ class Puzzlebox:
 
     def initGame(self):
 
-        GPIO.output(self.io_led_red_jack, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
-        GPIO.output(self.io_led_green_jack, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
+        GPIO.output(self.IO_LED_RED_JACK, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
+        GPIO.output(self.IO_LED_GREEN_JACK, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
+
+        GPIO.output(self.IO_LED_RED_SWITCH, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
+        GPIO.output(self.IO_LED_GREEN_SWITCH, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
+
+        self.crono = 0
+
+        self.state = 'ROOM'
+
+    def roomGame(self):
+
+        self.crono += Deltatime.tick()
+
+        counter = datetime(1, 1, 1) + Deltatime.delta(seconds=self.crono)
+
+        heure = counter.strftime("%M:%S")
+
+        self.display.setText(heure)
+
+        if (self.crono > 5):
+            self.crono = 0
+            self.state = 'FINAL'
+
+    def finalGame(self):
+
+        self.crono += Deltatime.tick()
+        self.display.setText("Bravo c'est fini")
+        if (self.crono > 10):
+            self.crono = 0
+            self.state = 'INIT'
+
 
     def gameLoop(self):
 
-        delta = 0
+        while(True):
 
-        while(True) :
-            delta += Deltatime.tick()
-            print( delta)
-            counter = datetime(1, 1, 1) + Deltatime.delta(seconds=delta)
-            heure = counter.strftime("%M:%S")
-            self.display.setText(heure)
+            if (self.state == 'START'):
+                self.state = 'INIT'
+                
+            elif (self.state == 'INIT'):
+                self.initGame()
+
+            elif (self.state == 'ROOM'):
+                self.roomGame()
+
+            elif (self.state == 'FINAL'):
+                self.finalGame()
+
+            print(self.state)
+  
             self.display.update()
             Deltatime.update()
-            # time.sleep(1)
+            time.sleep(.1)  # pour éviter de saturer le CPU
 
 
     def initHardware(self):

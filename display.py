@@ -1,6 +1,7 @@
 from font import AsciiFont
 import board
 import neopixel
+from deltatime import Deltatime
 
 class Display:
 
@@ -15,6 +16,7 @@ class Display:
     scrolltime = 0
     start_x = 0
     scroll = False
+    crono = 0
 
     MATRIX_WIDTH = 32
     MATRIX_HEIGHT = 8
@@ -31,7 +33,8 @@ class Display:
     def setText(self, text):
 
         if (self.text != text):
-
+            self.crono = 0
+            self.start_x = 0
             self.text = text
             self.matrixText = self.font.getString(text)
             if(len(self.matrixText) > 0):
@@ -43,10 +46,17 @@ class Display:
     def update(self):
 
         self.clear()
-       # if (self.scroll):
+        if (self.scroll):
 
-        
-        self.draw(0, 0, self.matrixText)
+            self.crono += Deltatime.tick()
+            if (self.crono > .1 ):
+                self.crono = 0
+                self.start_x += 1
+
+        try:
+            self.draw(0, 0, self.matrixText)
+        except:
+            None
        # self.font.print(self.matrixText)
 
     def xy_to_index(self, x, y):
@@ -59,6 +69,7 @@ class Display:
             self.pixels[x] = (0, 0, 0)
 
     def draw(self, offset_x, offset_y, ch):
+
 
         max_y = len(ch)
 
