@@ -1,0 +1,11 @@
+[Unit]
+Description=Puzzle Box Python
+
+[Service]
+WorkingDirectory=/home/daniel/puzzle-box
+ExecStart=/home/daniel/puzzle-box/venv/bin/python3 /home/daniel/puzzle-box/game.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
