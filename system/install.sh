@@ -1,6 +1,6 @@
 
-sudo cp puzzlebox.service /etc/systemd/system/game.service
+sudo cp puzzlebox.service /etc/systemd/system/puzzlebox.service
 
 sudo systemctl daemon-reload
-sudo systemctl enable game.service
-sudo systemctl start game.service
+sudo systemctl enable puzzlebox.service
+sudo systemctl start puzzlebox.service
