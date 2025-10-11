@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 from datetime import datetime
 from display import Display
+from deltatime import Deltatime
 
 class Puzzlebox:
 
@@ -53,15 +54,16 @@ class Puzzlebox:
 
     def gameLoop(self):
 
-        start = datetime.today()
-        counter = datetime(1, 1, 1) 
+        delta = 0
 
         while(True) :
-            delta = (datetime.today() - start)
-            counter = datetime(1, 1, 1) + delta
+            delta += Deltatime.tick()
+            print( delta)
+            counter = datetime(1, 1, 1) + Deltatime.delta(seconds=delta)
             heure = counter.strftime("%M:%S")
             self.display.setText(heure)
             self.display.update()
+            Deltatime.update()
             # time.sleep(1)
 
 

@@ -7,11 +7,14 @@ class Display:
     text = ''
     matrixText = None
     color = (155, 20, 40)
+    bgColor = (0, 0, 0)
 
     font = None
     matrix = None
     pixels = None
-
+    scrolltime = 0
+    start_x = 0
+    scroll = False
 
     MATRIX_WIDTH = 32
     MATRIX_HEIGHT = 8
@@ -31,11 +34,19 @@ class Display:
 
             self.text = text
             self.matrixText = self.font.getString(text)
+            if(len(self.matrixText) > 0):
+                if(len(self.matrixText[0]) > self.MATRIX_WIDTH):
+                    self.scroll = True
+                else:
+                    self.scroll = False
 
     def update(self):
 
         self.clear()
-        self.draw(1, 0, self.matrixText)
+       # if (self.scroll):
+
+        
+        self.draw(0, 0, self.matrixText)
        # self.font.print(self.matrixText)
 
     def xy_to_index(self, x, y):
@@ -49,10 +60,26 @@ class Display:
 
     def draw(self, offset_x, offset_y, ch):
 
-        for y in range(len(ch)):
-            for x in range(len(ch[y])):
-                if ch[y][x] == 1:
-                    self.pixels[self.xy_to_index(x + offset_x, y + offset_y)] = self.color
+        max_y = len(ch)
+
+        if (max_y > self.MATRIX_HEIGHT):
+            max_y = self.MATRIX_HEIGHT
+
+        for y in range(max_y):
+
+            max_x = len(ch[y])
+
+            if (max_x > self.MATRIX_WIDTH):
+                max_x = self.MATRIX_WIDTH            
+
+            for x in range(max_x):
+
+                if ch[y][x + self.start_x] == 1:
+                    color = self.color
+                else:
+                    color = self.bgColor
+                    
+                self.pixels[self.xy_to_index(x + offset_x, y + offset_y)] = color
 
         self.pixels.show()
             
