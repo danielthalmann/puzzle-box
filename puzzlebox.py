@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import keyboard
 from datetime import datetime
 from display import Display
 from deltatime import Deltatime
@@ -7,6 +8,8 @@ from deltatime import Deltatime
 class Puzzlebox:
 
     state = 'START'
+    state_menu = ['LANGUAGE', 'RESET', 'RESUME']
+    state_menu_index = 0
 
     display = None
     crono = 0
@@ -83,7 +86,52 @@ class Puzzlebox:
             self.crono = 0
             self.state = 'INIT'
 
+    def checkIfMenu(self):
 
+        if keyboard.is_pressed('esc'):
+            self.state = 'MENU_INIT'
+
+        if GPIO.input(self.IO_MENU):
+            self.state = 'MENU_INIT'
+
+    def menuInit(self):
+
+        self.display.setText("MENU")
+        self.state_menu_index = 0
+        time.sleep(3)
+        self.state = self.state_menu[self.state_menu[self.state_menu_index]]
+
+        
+    def menuLanguage(self):
+
+        self.display.setText("LANGUAGE")
+        self.switchMenu()
+
+
+    def menuReset(self):
+        self.display.setText("RESET")
+        self.switchMenu()
+
+
+    def menuResume(self):
+        self.display.setText("RESUME")
+        self.switchMenu()
+
+
+    def switcMenu(self):
+
+        if keyboard.is_pressed('up'):
+            self.state_menu_index--
+        if keyboard.is_pressed('down'):
+            self.state_menu_index++
+
+        if self.state_menu_index > len(self.state_menu) - 1:
+            self.state_menu_index = 0
+        if self.state_menu_index < 0:
+            self.state_menu_index = len(self.state_menu) - 1:
+
+        
+            
     def gameLoop(self):
 
         while(True):
@@ -96,9 +144,26 @@ class Puzzlebox:
 
             elif (self.state == 'ROOM'):
                 self.roomGame()
+                self.checkIfMenu()
 
             elif (self.state == 'FINAL'):
                 self.finalGame()
+                self.checkIfMenu()
+
+            elif (self.state == 'MENU_INIT'):
+                self.menuInit()
+
+            elif (self.state == 'MENU'):
+                self.menu()
+
+            elif (self.state == 'LANGUAGE'):
+                self.menuLanguage()
+
+            elif (self.state == 'RESET'):
+                self.menuReset()
+
+            elif (self.menuResume == 'RESUME'):
+                self.finalGame()                
 
             print(self.state)
   
