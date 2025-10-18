@@ -76,14 +76,14 @@ class Puzzlebox:
         self.crono = 0
 
         self.state = 'ROOM'
-        self.play_sound('relaxing.mp3')
+        self.play_sound('sound/relaxing.mp3')
 
     def roomGame(self):
 
         self.displayCounter()
 
         if self.is_pressed(self.IO_SELECT):
-            self.play_sound('inspiring-emotional.mp3')
+            self.play_sound('sound/inspiring-emotional.mp3')
             self.state = 'PSYCHOLOGIST'
 
     def psychologistGame(self):
