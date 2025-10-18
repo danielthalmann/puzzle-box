@@ -1,6 +1,5 @@
 import RPi.GPIO as GPIO
 import time
-import keyboard
 import sys
 import select
 import termios
@@ -12,6 +11,7 @@ from deltatime import Deltatime
 class Puzzlebox:
 
     state = 'START'
+    last_state = 'START'
     state_menu = ['LANGUAGE', 'RESET', 'RESUME']
     state_menu_index = 0
 
@@ -71,17 +71,25 @@ class Puzzlebox:
 
     def roomGame(self):
 
-        self.crono += Deltatime.tick()
+        self.displayCounter()
 
-        counter = datetime(1, 1, 1) + Deltatime.delta(seconds=self.crono)
+        if self.is_pressed('n'):
+            self.state = 'PSYCHOLOGIST'
 
-        heure = counter.strftime("%M:%S")
+    def psychologistGame(self):
 
-        self.display.setText(heure)
+        self.displayCounter()
 
-        if (self.crono > 5):
-            self.crono = 0
+        if self.is_pressed('n'):
             self.state = 'FINAL'
+
+
+    def displayCounter(self):
+
+        self.crono += Deltatime.tick()
+        counter = datetime(1, 1, 1) + Deltatime.delta(seconds=self.crono)
+        heure = counter.strftime("%M:%S")
+        self.display.setText(heure)
 
     def finalGame(self):
 
@@ -93,7 +101,7 @@ class Puzzlebox:
 
     def checkIfMenu(self):
 
-        if keyboard.is_pressed('m'):
+        if self.is_pressed('m'):
             self.state = 'MENU_INIT'
 
         if GPIO.input(self.IO_MENU):
@@ -102,8 +110,9 @@ class Puzzlebox:
     def menuInit(self):
 
         self.display.setText("MENU")
+        time.sleep(2)
+
         self.state_menu_index = 0
-        time.sleep(3)
         self.state = self.state_menu[self.state_menu_index]
 
         
@@ -125,9 +134,7 @@ class Puzzlebox:
 
     def switchMenu(self):
 
-        if keyboard.is_pressed('up'):
-            self.state_menu_index -= 1
-        if keyboard.is_pressed('down'):
+        if self.is_pressed('n'):
             self.state_menu_index += 1
 
         if GPIO.input(self.IO_SELECT):
@@ -137,6 +144,8 @@ class Puzzlebox:
             self.state_menu_index = 0
         if self.state_menu_index < 0:
             self.state_menu_index = len(self.state_menu) - 1
+
+        self.state = self.state_menu[self.state_menu_index]
 
 
             
@@ -152,6 +161,10 @@ class Puzzlebox:
 
             elif (self.state == 'ROOM'):
                 self.roomGame()
+                self.checkIfMenu()
+
+            elif (self.state == 'PSYCHOLOGIST'):
+                self.psychologistGame()
                 self.checkIfMenu()
 
             elif (self.state == 'FINAL'):
@@ -171,15 +184,15 @@ class Puzzlebox:
                 self.menuReset()
 
             elif (self.menuResume == 'RESUME'):
-                self.finalGame()                
-
-            print(self.state)
+                self.menuResume()
+                
+            if self.state != self.last_state:
+                print(self.state)
+                self.last_state = self.state
   
             self.display.update()
             Deltatime.update()
-            time.sleep(.1)  # pour éviter de saturer le CPU
-
-            self.key()
+            time.sleep(.4)  # pour éviter de saturer le CPU
 
 
     def initHardware(self):
@@ -229,15 +242,14 @@ class Puzzlebox:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     
 
-    def key(self):
+    def is_pressed(self, keytest):
 
-        key = get_key_nonblocking(0.1)  # 100 ms timeout
+        key = self.get_key_nonblocking(0.01)  # 100 ms timeout
         if key:
-            if key == '\x1b':  # ESC
-                print("ESC appuyé")
-                break
-            print("touche:", repr(key))        
-
+            return (key == keytest)
+        else:
+            return False
+        
 
 
 
