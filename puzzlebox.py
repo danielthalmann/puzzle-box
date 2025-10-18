@@ -87,6 +87,13 @@ class Puzzlebox:
 
         self.displayCounter()
 
+        GPIO.output(self.IO_LED_RED_JACK, GPIO.LOW)  # Met le GPIO 17 à l’état haut (3.3V)
+        GPIO.output(self.IO_LED_GREEN_JACK, GPIO.HIGH)   # Met le GPIO 17 à l’état bas (0V)
+
+        GPIO.output(self.IO_LED_RED_SWITCH, GPIO.LOW)  # Met le GPIO 17 à l’état haut (3.3V)
+        GPIO.output(self.IO_LED_GREEN_SWITCH, GPIO.HIGH)   # Met le GPIO 17 à l’état bas (0V)
+
+
         if self.is_pressed(self.IO_SELECT):
             self.state = 'FINAL'
 
