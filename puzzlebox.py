@@ -12,8 +12,15 @@ class Puzzlebox:
 
     state = 'START'
     last_state = 'START'
+    menu_activated = False
     state_menu = ['LANGUAGE', 'RESET', 'RESUME']
     state_menu_index = 0
+    resume_state = ''
+
+    
+    lang = 0
+    lang_select = 0
+    languages = ['French', 'German']
 
     display = None
     crono = 0
@@ -73,14 +80,14 @@ class Puzzlebox:
 
         self.displayCounter()
 
-        if self.is_pressed('n'):
+        if self.is_pressed(self.IO_SELECT):
             self.state = 'PSYCHOLOGIST'
 
     def psychologistGame(self):
 
         self.displayCounter()
 
-        if self.is_pressed('n'):
+        if self.is_pressed(self.IO_SELECT):
             self.state = 'FINAL'
 
 
@@ -101,16 +108,15 @@ class Puzzlebox:
 
     def checkIfMenu(self):
 
-        if self.is_pressed('m'):
-            self.state = 'MENU_INIT'
-
-        if GPIO.input(self.IO_MENU):
+        if self.is_pressed(self.IO_MENU):
+            self.resume_state = self.state
             self.state = 'MENU_INIT'
 
     def menuInit(self):
 
         self.display.setText("MENU")
-        time.sleep(2)
+        time.sleep(3)
+
 
         self.state_menu_index = 0
         self.state = self.state_menu[self.state_menu_index]
@@ -118,8 +124,29 @@ class Puzzlebox:
         
     def menuLanguage(self):
 
-        self.display.setText("LANGUAGE")
-        self.switchMenu()
+        if self.menu_activated:
+
+            self.display.setText(self.languages[self.lang_select])
+
+            if self.is_pressed(self.IO_ENTER):
+               self.lang = self.lang_select
+               self.menu_activated = False
+
+            if self.is_pressed(self.IO_SELECT):
+                self.lang_select += 1
+                if (self.lang_select > len(self.languages) - 1):
+                    self.lang_select = 0
+
+            
+        else:
+            self.display.setText("LANGUAGE")
+
+            self.switchMenu()
+
+            if self.is_pressed(self.IO_ENTER):
+                self.lang_select = self.lang
+                self.menu_activated = True
+
 
 
     def menuReset(self):
@@ -134,19 +161,15 @@ class Puzzlebox:
 
     def switchMenu(self):
 
-        if self.is_pressed('n'):
+        if self.is_pressed(self.IO_SELECT):
             self.state_menu_index += 1
 
-        if GPIO.input(self.IO_SELECT):
-            self.state_menu_index += 1
-
-        if self.state_menu_index > len(self.state_menu) - 1:
+        if self.state_menu_index > (len(self.state_menu) - 1):
             self.state_menu_index = 0
-        if self.state_menu_index < 0:
-            self.state_menu_index = len(self.state_menu) - 1
 
-        self.state = self.state_menu[self.state_menu_index]
-
+        if self.state != self.state_menu[self.state_menu_index]:
+            self.state = self.state_menu[self.state_menu_index]
+            self.menu_activated = False
 
             
     def gameLoop(self):
@@ -183,7 +206,7 @@ class Puzzlebox:
             elif (self.state == 'RESET'):
                 self.menuReset()
 
-            elif (self.menuResume == 'RESUME'):
+            elif (self.state == 'RESUME'):
                 self.menuResume()
                 
             if self.state != self.last_state:
@@ -242,7 +265,18 @@ class Puzzlebox:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     
 
-    def is_pressed(self, keytest):
+    def is_pressed(self, io):
+
+        if GPIO.input(io):
+            return True
+
+        keytest = 'none'
+        if (io == self.IO_SELECT):
+            keytest = 'n'
+        if (io == self.IO_MENU):
+            keytest = 'm'
+        if (io == self.IO_ENTER):
+            keytest = 'b'            
 
         key = self.get_key_nonblocking(0.01)  # 100 ms timeout
         if key:
