@@ -4,6 +4,7 @@ import sys
 import select
 import termios
 import tty
+import pygame
 from datetime import datetime
 from display import Display
 from deltatime import Deltatime
@@ -75,12 +76,14 @@ class Puzzlebox:
         self.crono = 0
 
         self.state = 'ROOM'
+        self.play_sound('relaxing.mp3')
 
     def roomGame(self):
 
         self.displayCounter()
 
         if self.is_pressed(self.IO_SELECT):
+            self.play_sound('inspiring-emotional.mp3')
             self.state = 'PSYCHOLOGIST'
 
     def psychologistGame(self):
@@ -95,6 +98,7 @@ class Puzzlebox:
 
 
         if self.is_pressed(self.IO_SELECT):
+            self.crono = 0
             self.state = 'FINAL'
 
 
@@ -266,6 +270,8 @@ class Puzzlebox:
         GPIO.setup(self.IO_OUT_JACK_4, GPIO.OUT)
         GPIO.setup(self.IO_OUT_JACK_5, GPIO.OUT)
 
+        pygame.mixer.init()
+
         
     def get_key_nonblocking(self, timeout=0.0):
         fd = sys.stdin.fileno()
@@ -300,6 +306,12 @@ class Puzzlebox:
             return False
         
 
+    def play_sound(self, path):
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.stop()
+
+        pygame.mixer.music.load(path)
+        pygame.mixer.music.play(loops=-1)
 
 
 
