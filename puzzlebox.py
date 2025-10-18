@@ -81,14 +81,14 @@ class Puzzlebox:
     def finalGame(self):
 
         self.crono += Deltatime.tick()
-        self.display.setText("Bravo c'est fini")
+        self.display.setText(" Bravo c'est fini ")
         if (self.crono > 10):
             self.crono = 0
             self.state = 'INIT'
 
     def checkIfMenu(self):
 
-        if keyboard.is_pressed('esc'):
+        if keyboard.is_pressed('m'):
             self.state = 'MENU_INIT'
 
         if GPIO.input(self.IO_MENU):
@@ -99,7 +99,7 @@ class Puzzlebox:
         self.display.setText("MENU")
         self.state_menu_index = 0
         time.sleep(3)
-        self.state = self.state_menu[self.state_menu[self.state_menu_index]]
+        self.state = self.state_menu[self.state_menu_index]
 
         
     def menuLanguage(self):
@@ -118,19 +118,22 @@ class Puzzlebox:
         self.switchMenu()
 
 
-    def switcMenu(self):
+    def switchMenu(self):
 
         if keyboard.is_pressed('up'):
-            self.state_menu_index--
+            self.state_menu_index -= 1
         if keyboard.is_pressed('down'):
-            self.state_menu_index++
+            self.state_menu_index += 1
+
+        if GPIO.input(self.IO_SELECT):
+            self.state_menu_index += 1
 
         if self.state_menu_index > len(self.state_menu) - 1:
             self.state_menu_index = 0
         if self.state_menu_index < 0:
-            self.state_menu_index = len(self.state_menu) - 1:
+            self.state_menu_index = len(self.state_menu) - 1
 
-        
+
             
     def gameLoop(self):
 
@@ -176,22 +179,22 @@ class Puzzlebox:
 
         GPIO.setmode(GPIO.BCM)      # Numérotation BCM
         # GPIO en entrée
-        GPIO.setup(self.IO_MENU, GPIO.IN)
-        GPIO.setup(self.IO_SELECT, GPIO.IN)
-        GPIO.setup(self.IO_ENTER, GPIO.IN)
+        GPIO.setup(self.IO_MENU, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_SELECT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_ENTER, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-        GPIO.setup(self.IO_IN_JACK_1, GPIO.IN)
-        GPIO.setup(self.IO_IN_JACK_2, GPIO.IN)
-        GPIO.setup(self.IO_IN_JACK_3, GPIO.IN)
-        GPIO.setup(self.IO_IN_JACK_4, GPIO.IN)
-        GPIO.setup(self.IO_IN_JACK_5, GPIO.IN)
+        GPIO.setup(self.IO_IN_JACK_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_IN_JACK_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_IN_JACK_3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_IN_JACK_4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_IN_JACK_5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-        GPIO.setup(self.IO_BUTTON_1, GPIO.IN)
-        GPIO.setup(self.IO_BUTTON_2, GPIO.IN)
-        GPIO.setup(self.IO_BUTTON_3, GPIO.IN)
-        GPIO.setup(self.IO_BUTTON_4, GPIO.IN)
+        GPIO.setup(self.IO_BUTTON_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_BUTTON_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_BUTTON_3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_BUTTON_4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-        GPIO.setup(self.IO_LID, GPIO.IN)  
+        GPIO.setup(self.IO_LID, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
         # GPIO en sortie
         GPIO.setup(self.IO_LED_RED_JACK, GPIO.OUT)
