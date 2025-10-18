@@ -151,12 +151,20 @@ class Puzzlebox:
 
     def menuReset(self):
         self.display.setText("RESET")
-        self.switchMenu()
+        if self.is_pressed(self.IO_ENTER):
+            self.state = 'INIT'
+        else:
+            self.switchMenu()
 
 
     def menuResume(self):
+
         self.display.setText("RESUME")
-        self.switchMenu()
+
+        if self.is_pressed(self.IO_ENTER):
+            self.state = self.resume_state
+        else:
+            self.switchMenu()
 
 
     def switchMenu(self):
@@ -276,7 +284,7 @@ class Puzzlebox:
         if (io == self.IO_MENU):
             keytest = 'm'
         if (io == self.IO_ENTER):
-            keytest = 'b'            
+            keytest = 'b'
 
         key = self.get_key_nonblocking(0.01)  # 100 ms timeout
         if key:
