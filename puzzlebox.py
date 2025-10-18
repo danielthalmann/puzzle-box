@@ -1,6 +1,10 @@
 import RPi.GPIO as GPIO
 import time
 import keyboard
+import sys
+import select
+import termios
+import tty
 from datetime import datetime
 from display import Display
 from deltatime import Deltatime
@@ -50,6 +54,7 @@ class Puzzlebox:
         self.display = Display()
         self.initHardware()
         self.gameLoop()
+        curses.wrapper()
 
 
     def initGame(self):
@@ -174,6 +179,8 @@ class Puzzlebox:
             Deltatime.update()
             time.sleep(.1)  # pour éviter de saturer le CPU
 
+            self.key()
+
 
     def initHardware(self):
 
@@ -209,7 +216,27 @@ class Puzzlebox:
         GPIO.setup(self.IO_OUT_JACK_5, GPIO.OUT)
 
         
+    def get_key_nonblocking(self, timeout=0.0):
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            r, _, _ = select.select([sys.stdin], [], [], timeout)
+            if r:
+                return sys.stdin.read(1)
+            return None
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     
+
+    def key(self):
+
+        key = get_key_nonblocking(0.1)  # 100 ms timeout
+        if key:
+            if key == '\x1b':  # ESC
+                print("ESC appuyé")
+                break
+            print("touche:", repr(key))        
 
 
 
