@@ -7,7 +7,7 @@ class Display:
 
     text = ''
     matrixText = None
-    color = (50, 50, 50)
+    color = (20, 20, 20)
     bgColor = (0, 0, 0)
 
     font = None
