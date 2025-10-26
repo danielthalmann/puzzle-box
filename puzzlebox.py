@@ -5,6 +5,7 @@ import select
 import termios
 import tty
 import pygame
+import subprocess
 from datetime import datetime
 from display import Display
 from deltatime import Deltatime
@@ -315,4 +316,12 @@ class Puzzlebox:
 
 
 
-        
+    def initDisplay(self):
+        if self.process != None:
+            if self.process.poll() is None:
+                print("Le script tourne encore, on l'arrête.")
+                self.process.terminate()   # envoie SIGTERM
+                self.process.wait()        # attend qu'il se termine
+
+        cmd = ["sudo", "./venv/bin/python3", "remote_display.py"]
+        self.process = subprocess.Popen(cmd)        
