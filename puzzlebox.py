@@ -89,6 +89,9 @@ class Puzzlebox:
 
         self.is_button_pressed()
 
+        if self.is_pressed(self.IO_LID):
+            print("boucle")
+
         if self.is_pressed(self.IO_SELECT):
             self.play_sound('sound/inspiring-emotional.mp3')
             self.state = 'PSYCHOLOGIST'
