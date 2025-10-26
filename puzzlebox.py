@@ -7,7 +7,6 @@ import tty
 import pygame
 import subprocess
 from datetime import datetime
-from display import Display
 from deltatime import Deltatime
 
 class Puzzlebox:
@@ -19,12 +18,12 @@ class Puzzlebox:
     state_menu_index = 0
     resume_state = ''
 
+    last_display_text = ''
     
     lang = 0
     lang_select = 0
     languages = ['French', 'German']
 
-    display = None
     crono = 0
 
     # GPIO const
@@ -60,7 +59,6 @@ class Puzzlebox:
     def start(self):
 
         self.state = 'START'
-        self.display = Display()
         self.initHardware()
         self.gameLoop()
         curses.wrapper()
@@ -108,12 +106,12 @@ class Puzzlebox:
         self.crono += Deltatime.tick()
         counter = datetime(1, 1, 1) + Deltatime.delta(seconds=self.crono)
         heure = counter.strftime("%M:%S")
-        self.display.setText(heure)
+        self.setDisplayText(heure)
 
     def finalGame(self):
 
         self.crono += Deltatime.tick()
-        self.display.setText(" Bravo c'est fini ")
+        self.setDisplayText(" Bravo c'est fini ")
         if (self.crono > 10):
             self.crono = 0
             self.state = 'INIT'
@@ -126,7 +124,7 @@ class Puzzlebox:
 
     def menuInit(self):
 
-        self.display.setText("MENU")
+        self.setDisplayText("MENU")
         time.sleep(3)
 
 
@@ -138,7 +136,7 @@ class Puzzlebox:
 
         if self.menu_activated:
 
-            self.display.setText(self.languages[self.lang_select])
+            self.setDisplayText(self.languages[self.lang_select])
 
             if self.is_pressed(self.IO_ENTER):
                self.lang = self.lang_select
@@ -151,7 +149,7 @@ class Puzzlebox:
 
             
         else:
-            self.display.setText("LANGUAGE")
+            self.setDisplayText("LANGUAGE")
 
             self.switchMenu()
 
@@ -162,7 +160,7 @@ class Puzzlebox:
 
 
     def menuReset(self):
-        self.display.setText("RESET")
+        self.setDisplayText("RESET")
         if self.is_pressed(self.IO_ENTER):
             self.state = 'INIT'
         else:
@@ -171,7 +169,7 @@ class Puzzlebox:
 
     def menuResume(self):
 
-        self.display.setText("RESUME")
+        self.setDisplayText("RESUME")
 
         if self.is_pressed(self.IO_ENTER):
             self.state = self.resume_state
@@ -233,7 +231,6 @@ class Puzzlebox:
                 print(self.state)
                 self.last_state = self.state
   
-            self.display.update()
             Deltatime.update()
             time.sleep(.4)  # pour éviter de saturer le CPU
 
@@ -316,7 +313,16 @@ class Puzzlebox:
 
 
 
+    def setDisplayText(self, text):
+        filename = './.exchange'
+        if (last_display_text != text):
+            last_display_text = text
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(text)
+
+
     def initDisplay(self):
+        
         if self.process != None:
             if self.process.poll() is None:
                 print("Le script tourne encore, on l'arrête.")
