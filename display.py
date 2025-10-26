@@ -52,9 +52,10 @@ class Display:
             if (self.crono > .1 ):
                 self.crono = 0
                 self.start_x += 1
+                start = -20
 
         try:
-            self.draw(0, 0, self.matrixText)
+            self.draw(1, 0, self.matrixText)
         except:
             None
        # self.font.print(self.matrixText)
@@ -90,7 +91,10 @@ class Display:
                 else:
                     color = self.bgColor
                     
-                self.pixels[self.xy_to_index(x + offset_x, y + offset_y)] = color
+                try:
+                    self.pixels[self.xy_to_index(x + offset_x, y + offset_y)] = color
+                except:
+                    None                    
 
         self.pixels.show()
             
