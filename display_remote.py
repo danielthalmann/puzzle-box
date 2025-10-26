@@ -8,37 +8,38 @@ import asyncio
 display = Display()
 filename = './.exchange'
 
-async def main():
+def main():
 
+    path = filename
     if len(sys.argv) > 1:
-        filename = sys.argv[1]
+        path = sys.argv[1]
 
     try:
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             content = f.read()
     except FileNotFoundError:
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             f.write('')
 
-    await watch_file_inotify(filename, cb)
-    await refresh()
+    refresh()
+    watch_file_inotify(path, cb)
 
 
-async def watch_file_inotify(path, callback):
+def watch_file_inotify(path, callback):
     inotify = INotify()
     wd = inotify.add_watch(path, flags.MODIFY | flags.MOVE_SELF | flags.DELETE_SELF)
     try:
         while True:
-            for event in inotify.read(timeout=1000):
+            for event in inotify.read(timeout=10):
                 display.update()
-                print( ">wait<")
                 # event.mask contient les drapeaux
                 callback(event)
+            refresh()
     except KeyboardInterrupt:
         inotify.rm_watch(wd)
 
 # usage basique
-async def cb(ev):
+def cb(ev):
     #print('inotify event', ev)
     with open(filename, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -46,12 +47,10 @@ async def cb(ev):
     display.setText(content)
     print( ">", content, "<")
     
-async def refresh():
-    while True: 
-        await asyncio.sleep(.4)
-        display.update()
+def refresh():
+    display.update()
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    main()
 
