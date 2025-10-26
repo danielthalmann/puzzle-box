@@ -30,12 +30,13 @@ def watch_file_inotify(path, callback):
     wd = inotify.add_watch(path, flags.MODIFY | flags.MOVE_SELF | flags.DELETE_SELF)
     try:
         while True:
-            for event in inotify.read(timeout=10):
-                display.update()
+            for event in inotify.read(timeout=100):
                 # event.mask contient les drapeaux
                 callback(event)
             refresh()
     except KeyboardInterrupt:
+        display.setText("")
+        refresh()
         inotify.rm_watch(wd)
 
 # usage basique
@@ -43,9 +44,8 @@ def cb(ev):
     #print('inotify event', ev)
     with open(filename, 'r', encoding='utf-8') as f:
         content = f.read()
-    
     display.setText(content)
-    print( ">", content, "<")
+    #print( ">", content, "<")
     
 def refresh():
     display.update()
