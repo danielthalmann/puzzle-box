@@ -315,8 +315,8 @@ class Puzzlebox:
 
     def setDisplayText(self, text):
         filename = './.exchange'
-        if (last_display_text != text):
-            last_display_text = text
+        if (self.last_display_text != text):
+            self.last_display_text = text
             with open(filename, 'w', encoding='utf-8') as f:
                 f.write(text)
 
@@ -329,5 +329,5 @@ class Puzzlebox:
                 self.process.terminate()   # envoie SIGTERM
                 self.process.wait()        # attend qu'il se termine
 
-        cmd = ["sudo", "./venv/bin/python3", "remote_display.py"]
+        cmd = ["sudo", "./venv/bin/python3", "display_remote.py"]
         self.process = subprocess.Popen(cmd)        
