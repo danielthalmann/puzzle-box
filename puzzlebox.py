@@ -83,6 +83,10 @@ class Puzzlebox:
 
         self.displayCounter()
 
+        self.is_jack_resolved()
+
+        self.is_switch_resolved()
+
         if self.is_pressed(self.IO_SELECT):
             self.play_sound('sound/inspiring-emotional.mp3')
             self.state = 'PSYCHOLOGIST'
@@ -254,8 +258,8 @@ class Puzzlebox:
         GPIO.setup(self.IO_IN_JACK_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.IO_IN_JACK_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.IO_IN_JACK_3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.IO_IN_JACK_4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.IO_IN_JACK_5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_IN_JACK_4, GPIO.IN)
+        GPIO.setup(self.IO_IN_JACK_5, GPIO.IN)
 
         GPIO.setup(self.IO_BUTTON_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.IO_BUTTON_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -276,6 +280,9 @@ class Puzzlebox:
         GPIO.setup(self.IO_OUT_JACK_4, GPIO.OUT)
         GPIO.setup(self.IO_OUT_JACK_5, GPIO.OUT)
 
+        self.initJackOutput()
+        self.initSwitch()
+
         pygame.mixer.init()
 
         
@@ -291,12 +298,58 @@ class Puzzlebox:
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     
-    def clear_jack_output():
-        GPIO.output(IO_OUT_JACK_1, 0)
-        GPIO.output(IO_OUT_JACK_2, 0)
-        GPIO.output(IO_OUT_JACK_3, 0)
-        GPIO.output(IO_OUT_JACK_4, 0)
-        GPIO.output(IO_OUT_JACK_5, 0)
+    def is_switch_resolved(self):
+        self.check_switch(self.IO_BUTTON_1)
+        self.check_switch(self.IO_BUTTON_2)
+        self.check_switch(self.IO_BUTTON_3)
+        self.check_switch(self.IO_BUTTON_4)
+
+    def check_switch(self, in_switch):
+        ok = False
+        if GPIO.input(in_switch):
+            ok = True
+
+        if self.switchs.get(in_switch, False) != ok:
+            self.switchs[in_switch] = ok
+            print(self.switchs)
+
+    def is_jack_resolved(self):
+
+        self.check_jack(self.IO_IN_JACK_1, self.IO_OUT_JACK_1)
+        self.check_jack(self.IO_IN_JACK_2, self.IO_OUT_JACK_2)
+        self.check_jack(self.IO_IN_JACK_3, self.IO_OUT_JACK_3)
+        self.check_jack(self.IO_IN_JACK_4, self.IO_OUT_JACK_4)
+        self.check_jack(self.IO_IN_JACK_5, self.IO_OUT_JACK_5)
+
+
+    def check_jack(self, in_jack, out_jack):
+        
+        if self.jacks.get(in_jack, None) == None:
+            self.jacks[in_jack] = False
+
+        ok = False
+        GPIO.output(out_jack, GPIO.HIGH)
+
+        if GPIO.input(in_jack):
+            ok = True
+        GPIO.output(out_jack, GPIO.LOW)
+
+        if self.jacks.get(in_jack, False) != ok:
+            self.jacks[in_jack] = ok
+            # print(self.jacks)
+
+        return ok
+
+    def initJackOutput(self):
+        self.jacks = {self.IO_IN_JACK_1: False, self.IO_IN_JACK_2: False, self.IO_IN_JACK_3: False, self.IO_IN_JACK_4: False, self.IO_IN_JACK_5: False}
+        GPIO.output(self.IO_OUT_JACK_1, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_2, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_3, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_4, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_5, GPIO.LOW)
+
+    def initSwitch(self):
+        self.switchs = {self.IO_BUTTON_1: False, self.IO_BUTTON_2: False, self.IO_BUTTON_3: False, self.IO_BUTTON_4: False}
 
     def is_pressed(self, io):
         now = time.time()
