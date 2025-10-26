@@ -22,9 +22,11 @@ class Puzzlebox:
     
     lang = 0
     lang_select = 0
-    languages = ['French', 'German']
+    languages = ['FR', 'DE']
 
     crono = 0
+
+    process = None
 
     # GPIO const
     IO_MENU = 13
@@ -149,7 +151,7 @@ class Puzzlebox:
 
             
         else:
-            self.setDisplayText("LANGUAGE")
+            self.setDisplayText("LA:" + self.languages[self.lang_select])
 
             self.switchMenu()
 
@@ -169,7 +171,7 @@ class Puzzlebox:
 
     def menuResume(self):
 
-        self.setDisplayText("RESUME")
+        self.setDisplayText("RES.")
 
         if self.is_pressed(self.IO_ENTER):
             self.state = self.resume_state
@@ -232,10 +234,16 @@ class Puzzlebox:
                 self.last_state = self.state
   
             Deltatime.update()
-            time.sleep(.4)  # pour éviter de saturer le CPU
+            time.sleep(.1)  # pour éviter de saturer le CPU
 
 
-    def initHardware(self):
+    def initHardware(self, bounce_ms=50):
+
+        # bounce_ms: debounce time in milliseconds for inputs
+        self.bounce_ms = bounce_ms
+        # dict to store last pressed timestamp per IO pin (seconds since epoch)
+        self.last_pressed_times = {}
+        self.last_state_pressed = {}
 
         GPIO.setmode(GPIO.BCM)      # Numérotation BCM
         # GPIO en entrée
@@ -283,34 +291,47 @@ class Puzzlebox:
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     
+    def clear_jack_output():
+        GPIO.output(IO_OUT_JACK_1, 0)
+        GPIO.output(IO_OUT_JACK_2, 0)
+        GPIO.output(IO_OUT_JACK_3, 0)
+        GPIO.output(IO_OUT_JACK_4, 0)
+        GPIO.output(IO_OUT_JACK_5, 0)
 
     def is_pressed(self, io):
+        now = time.time()
 
-        if GPIO.input(io):
-            return True
-
-        keytest = 'none'
-        if (io == self.IO_SELECT):
-            keytest = 'n'
-        if (io == self.IO_MENU):
-            keytest = 'm'
-        if (io == self.IO_ENTER):
-            keytest = 'b'
-
-        key = self.get_key_nonblocking(0.01)  # 100 ms timeout
-        if key:
-            return (key == keytest)
-        else:
+        if self.last_state_pressed.get(io, False):
+            if not (GPIO.input(io)):
+                self.last_pressed_times[io] = 0
+                self.last_state_pressed[io] = False
             return False
-        
+        else:
+            if GPIO.input(io):
+                print(io)
+                last = self.last_pressed_times.get(io, 0)
+                if (last == 0):
+                    self.last_pressed_times[io] = now
+                else:
+                    # if last press too recent, ignore
+                    if (now - last) * 1000 < self.bounce_ms:
+                        return False
+                    self.last_pressed_times[io] = 0
+                    self.last_state_pressed[io] = True
+                    return True
+            else:
+                self.last_pressed_times[io] = 0
+
+
+        return False
 
     def play_sound(self, path):
+        
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.stop()
 
         pygame.mixer.music.load(path)
         pygame.mixer.music.play(loops=-1)
-
 
 
     def setDisplayText(self, text):
@@ -320,14 +341,6 @@ class Puzzlebox:
             with open(filename, 'w', encoding='utf-8') as f:
                 f.write(text)
 
-
-    def initDisplay(self):
-        
-        if self.process != None:
-            if self.process.poll() is None:
-                print("Le script tourne encore, on l'arrête.")
-                self.process.terminate()   # envoie SIGTERM
-                self.process.wait()        # attend qu'il se termine
-
-        cmd = ["sudo", "./venv/bin/python3", "display_remote.py"]
-        self.process = subprocess.Popen(cmd)        
+    def cleanup(self):
+        self.setDisplayText('')
+        GPIO.cleanup()
