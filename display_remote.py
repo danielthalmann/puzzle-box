@@ -1,13 +1,14 @@
-# from display import Display
+from display import Display
 from inotify_simple import INotify, flags
 import sys
 import time
+import asyncio
 
 
-def main():
+display = Display()
+filename = './.exchange'
 
-    # display = Display()
-    filename = './.exchange'
+async def main():
 
     if len(sys.argv) > 1:
         filename = sys.argv[1]
@@ -19,31 +20,38 @@ def main():
         with open(filename, 'w', encoding='utf-8') as f:
             f.write('')
 
-
-    def watch_file_inotify(path, callback):
-        inotify = INotify()
-        wd = inotify.add_watch(path, flags.MODIFY | flags.MOVE_SELF | flags.DELETE_SELF)
-        try:
-            while True:
-                for event in inotify.read(timeout=1000):
-                    # display.update()
-                    # event.mask contient les drapeaux
-                    callback(event)
-        except KeyboardInterrupt:
-            inotify.rm_watch(wd)
-
-    # usage basique
-    def cb(ev):
-        #print('inotify event', ev)
-        with open(filename, 'r', encoding='utf-8') as f:
-            content = f.read()
-       
-        #display.setText(content)
-        print( ">", content, "<")
+    await watch_file_inotify(filename, cb)
+    await refresh()
 
 
-    watch_file_inotify(filename, cb)
+async def watch_file_inotify(path, callback):
+    inotify = INotify()
+    wd = inotify.add_watch(path, flags.MODIFY | flags.MOVE_SELF | flags.DELETE_SELF)
+    try:
+        while True:
+            for event in inotify.read(timeout=1000):
+                display.update()
+                print( ">wait<")
+                # event.mask contient les drapeaux
+                callback(event)
+    except KeyboardInterrupt:
+        inotify.rm_watch(wd)
+
+# usage basique
+async def cb(ev):
+    #print('inotify event', ev)
+    with open(filename, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    display.setText(content)
+    print( ">", content, "<")
+    
+async def refresh():
+    while True: 
+        await asyncio.sleep(.4)
+        display.update()
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
+
