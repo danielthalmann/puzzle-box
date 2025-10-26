@@ -58,6 +58,8 @@ class Puzzlebox:
     IO_IN_JACK_4 = 3    
     IO_IN_JACK_5 = 2
 
+    IO_OUT_LED = 5
+
     def start(self):
 
         self.state = 'START'
@@ -85,7 +87,7 @@ class Puzzlebox:
 
         self.is_jack_resolved()
 
-        self.is_switch_resolved()
+        self.is_button_pressed()
 
         if self.is_pressed(self.IO_SELECT):
             self.play_sound('sound/inspiring-emotional.mp3')
@@ -255,9 +257,10 @@ class Puzzlebox:
         GPIO.setup(self.IO_SELECT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.IO_ENTER, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-        GPIO.setup(self.IO_IN_JACK_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.IO_IN_JACK_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.IO_IN_JACK_3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_IN_JACK_1, GPIO.IN)
+        GPIO.setup(self.IO_IN_JACK_2, GPIO.IN)
+        GPIO.setup(self.IO_IN_JACK_3, GPIO.IN)
+        # GPIO 2 and 3 include 1,8kohm pull UP
         GPIO.setup(self.IO_IN_JACK_4, GPIO.IN)
         GPIO.setup(self.IO_IN_JACK_5, GPIO.IN)
 
@@ -280,6 +283,9 @@ class Puzzlebox:
         GPIO.setup(self.IO_OUT_JACK_4, GPIO.OUT)
         GPIO.setup(self.IO_OUT_JACK_5, GPIO.OUT)
 
+        GPIO.setup(self.IO_OUT_LED, GPIO.OUT)
+        GPIO.output(self.IO_OUT_LED, GPIO.HIGH)
+
         self.initJackOutput()
         self.initSwitch()
 
@@ -298,19 +304,20 @@ class Puzzlebox:
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     
-    def is_switch_resolved(self):
-        self.check_switch(self.IO_BUTTON_1)
-        self.check_switch(self.IO_BUTTON_2)
-        self.check_switch(self.IO_BUTTON_3)
-        self.check_switch(self.IO_BUTTON_4)
+    def is_button_pressed(self):
+        self.check_button(self.IO_BUTTON_1)
+        self.check_button(self.IO_BUTTON_2)
+        self.check_button(self.IO_BUTTON_3)
+        self.check_button(self.IO_BUTTON_4)
 
-    def check_switch(self, in_switch):
-        ok = False
-        if GPIO.input(in_switch):
-            ok = True
+    def check_button(self, in_switch):
 
-        if self.switchs.get(in_switch, False) != ok:
-            self.switchs[in_switch] = ok
+        pressed = False
+        if self.is_pressed(in_switch, True):
+            pressed = True
+
+        if self.switchs.get(in_switch, False) != pressed:
+            self.switchs[in_switch] = pressed
             print(self.switchs)
 
     def is_jack_resolved(self):
@@ -328,37 +335,40 @@ class Puzzlebox:
             self.jacks[in_jack] = False
 
         ok = False
-        GPIO.output(out_jack, GPIO.HIGH)
+        GPIO.output(out_jack, GPIO.LOW)
 
         if GPIO.input(in_jack):
+            ok = False
+        else:
             ok = True
-        GPIO.output(out_jack, GPIO.LOW)
+
+        GPIO.output(out_jack, GPIO.HIGH)
 
         if self.jacks.get(in_jack, False) != ok:
             self.jacks[in_jack] = ok
-            # print(self.jacks)
+            #print(self.jacks)
 
         return ok
 
     def initJackOutput(self):
         self.jacks = {self.IO_IN_JACK_1: False, self.IO_IN_JACK_2: False, self.IO_IN_JACK_3: False, self.IO_IN_JACK_4: False, self.IO_IN_JACK_5: False}
-        GPIO.output(self.IO_OUT_JACK_1, GPIO.LOW)
-        GPIO.output(self.IO_OUT_JACK_2, GPIO.LOW)
-        GPIO.output(self.IO_OUT_JACK_3, GPIO.LOW)
-        GPIO.output(self.IO_OUT_JACK_4, GPIO.LOW)
-        GPIO.output(self.IO_OUT_JACK_5, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_1, GPIO.HIGH)
+        GPIO.output(self.IO_OUT_JACK_2, GPIO.HIGH)
+        GPIO.output(self.IO_OUT_JACK_3, GPIO.HIGH)
+        GPIO.output(self.IO_OUT_JACK_4, GPIO.HIGH)
+        GPIO.output(self.IO_OUT_JACK_5, GPIO.HIGH)
 
     def initSwitch(self):
         self.switchs = {self.IO_BUTTON_1: False, self.IO_BUTTON_2: False, self.IO_BUTTON_3: False, self.IO_BUTTON_4: False}
 
-    def is_pressed(self, io):
+    def is_pressed(self, io, maintain = False):
         now = time.time()
 
         if self.last_state_pressed.get(io, False):
             if not (GPIO.input(io)):
                 self.last_pressed_times[io] = 0
                 self.last_state_pressed[io] = False
-            return False
+            return maintain
         else:
             if GPIO.input(io):
                 print(io)
