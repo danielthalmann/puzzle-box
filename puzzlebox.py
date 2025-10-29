@@ -33,8 +33,8 @@ class Puzzlebox:
     IO_SELECT = 7
     IO_ENTER = 17
 
-    IO_LED_RED_JACK = 3 # legacy 8
-    IO_LED_GREEN_JACK = 2 # legacy 11
+    IO_LED_RED_JACK = 2 # legacy 8
+    IO_LED_GREEN_JACK = 3 # legacy 11
 
     IO_LED_RED_SWITCH = 12
     IO_LED_GREEN_SWITCH = 6
@@ -55,8 +55,8 @@ class Puzzlebox:
     IO_IN_JACK_1 = 15
     IO_IN_JACK_2 = 4
     IO_IN_JACK_3 = 14
-    IO_IN_JACK_4 = 8 # legacy 3    
-    IO_IN_JACK_5 = 11 # legacy 2
+    IO_IN_JACK_4 = 11 # legacy 3    
+    IO_IN_JACK_5 = 8 # legacy 2
 
     IO_OUT_LED = 5
 
