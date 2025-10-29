@@ -1,3 +1,3 @@
 #/bin/bash
 
-sudo ./venv/bin/python3 display_remote.py 
+sudo ./venv/bin/python3 display.py 

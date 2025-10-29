@@ -2,6 +2,8 @@ from font import AsciiFont
 import board
 import neopixel
 from deltatime import Deltatime
+import sys
+from inotify_simple import INotify, flags
 
 class Display:
 
@@ -116,5 +118,58 @@ class Display:
                 matrix[y][x] = (last - ((width - 1 - x) * height)) - (height - 1 - y)
 
         return matrix
-            
-            
+
+
+def main():
+
+    path = './.exchange'
+    display = Display()
+
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except FileNotFoundError:
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write('')
+
+    refresh(display)
+    watch_file_inotify(path, cb, display)
+
+
+def watch_file_inotify(path, callback, display):
+    inotify = INotify()
+    wd = inotify.add_watch(path, flags.MODIFY | flags.MOVE_SELF | flags.DELETE_SELF)
+    try:
+        while True:
+            for event in inotify.read(timeout=100):
+                # event.mask contient les drapeaux
+                callback(event, path, display)
+            refresh(display)
+    except KeyboardInterrupt:
+        display.setText("")
+        refresh(display)
+        inotify.rm_watch(wd)
+    except Exception as ex:
+        inotify.rm_watch(wd)
+        with open('.dispay.log', 'w', encoding='utf-8') as f:
+            f.write(ex.with_traceback)
+
+    
+
+# usage basique
+def cb(ev, filename, display):
+    #print('inotify event', ev)
+    with open(filename, 'r', encoding='utf-8') as f:
+        content = f.read()
+    display.setText(content)
+    #print( ">", content, "<")
+    
+def refresh(display):
+    display.update()
+
+
+if __name__ == '__main__':
+    main()
