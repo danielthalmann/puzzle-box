@@ -334,32 +334,32 @@ class Puzzlebox:
 
     def check_jack(self, in_jack, out_jack):
         
-        if self.jacks.get(in_jack, None) == None:
-            self.jacks[in_jack] = False
+        #if self.jacks.get(in_jack, None) == None:
+        #   self.jacks[in_jack] = False
 
         ok = False
-        GPIO.output(out_jack, GPIO.LOW)
-
-        if GPIO.input(in_jack):
-            ok = False
-        else:
-            ok = True
-
         GPIO.output(out_jack, GPIO.HIGH)
+        time.sleep(.001)
+        if GPIO.input(in_jack):
+            ok = True
+        else:
+            ok = False
+
+        GPIO.output(out_jack, GPIO.LOW)
 
         if self.jacks.get(in_jack, False) != ok:
             self.jacks[in_jack] = ok
-            #print(self.jacks)
+            print(self.jacks)
 
         return ok
 
     def initJackOutput(self):
         self.jacks = {self.IO_IN_JACK_1: False, self.IO_IN_JACK_2: False, self.IO_IN_JACK_3: False, self.IO_IN_JACK_4: False, self.IO_IN_JACK_5: False}
-        GPIO.output(self.IO_OUT_JACK_1, GPIO.HIGH)
-        GPIO.output(self.IO_OUT_JACK_2, GPIO.HIGH)
-        GPIO.output(self.IO_OUT_JACK_3, GPIO.HIGH)
-        GPIO.output(self.IO_OUT_JACK_4, GPIO.HIGH)
-        GPIO.output(self.IO_OUT_JACK_5, GPIO.HIGH)
+        GPIO.output(self.IO_OUT_JACK_1, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_2, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_3, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_4, GPIO.LOW)
+        GPIO.output(self.IO_OUT_JACK_5, GPIO.LOW)
 
     def initSwitch(self):
         self.switchs = {self.IO_BUTTON_1: False, self.IO_BUTTON_2: False, self.IO_BUTTON_3: False, self.IO_BUTTON_4: False}
