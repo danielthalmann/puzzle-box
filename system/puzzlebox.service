@@ -2,10 +2,19 @@
 Description=Puzzle Box Python
 
 [Service]
+# working directory and start command
 WorkingDirectory=/home/daniel/puzzle-box
 ExecStart=/home/daniel/puzzle-box/venv/bin/python3 /home/daniel/puzzle-box/game.py
-Restart=always
+
+# username of service
 User=daniel
+
+# restart service after 10 secondes if it crashes
+Restart=always
+RestartSec=10
+
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
+Environment="DISPLAY=:0"
 
 [Install]
 WantedBy=multi-user.target
