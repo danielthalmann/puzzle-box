@@ -11,6 +11,7 @@ from deltatime import Deltatime
 
 class Puzzlebox:
 
+    run = True
     state = 'START'
     last_state = 'START'
     menu_activated = False
@@ -65,7 +66,10 @@ class Puzzlebox:
         self.state = 'START'
         self.initHardware()
         self.gameLoop()
-        curses.wrapper()
+        self.cleanup()
+
+    def stop(self):
+        self.run = False
 
 
     def initGame(self):
@@ -203,7 +207,7 @@ class Puzzlebox:
             
     def gameLoop(self):
 
-        while(True):
+        while(self.run):
 
             if (self.state == 'START'):
                 self.state = 'INIT'
