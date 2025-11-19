@@ -84,6 +84,7 @@ class Puzzlebox:
 
         self.state = 'ROOM'
         self.play_sound('sound/relaxing.mp3')
+        self.play_sound('sound/start-' + self.languages[self.lang_select] + '.mp3')
 
     def roomGame(self):
 
@@ -97,7 +98,7 @@ class Puzzlebox:
             print("boucle")
 
         if self.is_pressed(self.IO_SELECT):
-            self.play_sound('sound/inspiring-emotional.mp3')
+            self.play_sound('sound/maman-papa-' + self.languages[self.lang_select] + '.mp3')
             self.state = 'PSYCHOLOGIST'
 
     def psychologistGame(self):
