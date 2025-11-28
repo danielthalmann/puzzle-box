@@ -30,12 +30,14 @@ class Puzzlebox:
     resume_state = ''
     last_display_text = ''
     
-    lang = 1
+    lang = 0
     languages = ['FR', 'DE']
 
     crono = 0
 
     process = None
+
+    debug = True
 
     # GPIO const
     IO_MENU = 13
@@ -88,7 +90,8 @@ class Puzzlebox:
             if (self.current_state != None):
                 self.current_state.leave()
 
-            print('from ' + self.current_state_name + ' to ' + state_name)
+            if self.debug:
+                print('from ' + self.current_state_name + ' to ' + state_name)
             self.current_state = self.states[state_name]
             self.current_state_name = state_name
             self.current_state.enter()
@@ -200,33 +203,32 @@ class Puzzlebox:
 
         if self.buttons.get(in_switch, False) != pressed:
             self.buttons[in_switch] = pressed
-            print(self.buttons)
+            if self.debug:
+                print(self.buttons)
 
         return pressed
 
-    def check_jack(self, in_jack, out_jack):
+    def check_jack(self, in_jack, out_jack, up = True):
         
         #if self.jacks.get(in_jack, None) == None:
         #   self.jacks[in_jack] = False
 
-        ok = False
-        GPIO.output(out_jack, GPIO.HIGH)
-        time.sleep(.001)
-        if GPIO.input(in_jack):
-            ok = True
+        isUp = False
+
+        if up:
+            GPIO.output(out_jack, GPIO.HIGH)
         else:
-            ok = False
 
-        GPIO.output(out_jack, GPIO.LOW)
+            if GPIO.input(in_jack):
+                isUp = True
+            else:
+                isUp = False
 
-        if self.jacks.get(in_jack, False) != ok:
-            self.jacks[in_jack] = ok
-            print(self.jacks)
+            GPIO.output(out_jack, GPIO.LOW)
 
-        return ok
+        return isUp
 
     def initJackOutput(self):
-        self.jacks = {self.IO_IN_JACK_1: False, self.IO_IN_JACK_2: False, self.IO_IN_JACK_3: False, self.IO_IN_JACK_4: False, self.IO_IN_JACK_5: False}
         GPIO.output(self.IO_OUT_JACK_1, GPIO.LOW)
         GPIO.output(self.IO_OUT_JACK_2, GPIO.LOW)
         GPIO.output(self.IO_OUT_JACK_3, GPIO.LOW)
@@ -246,7 +248,6 @@ class Puzzlebox:
             return maintain
         else:
             if GPIO.input(io):
-                print(io)
                 last = self.last_pressed_times.get(io, 0)
                 if (last == 0):
                     self.last_pressed_times[io] = now
