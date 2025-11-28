@@ -8,17 +8,26 @@ import pygame
 import subprocess
 from datetime import datetime
 from deltatime import Deltatime
+from states.state import State
+from states.finalstate import FinalState
+from states.initstate import InitState
+from states.languagestate import LanguageState
+from states.menuinitstate import MenuInitState
+from states.menustate import MenuState
+from states.psychologiststate import PsychologistState
+from states.resetstate import ResetState
+from states.resumestate import ResumeState
+from states.roomstate import RoomState
+from states.startstate import StartState
 
 class Puzzlebox:
 
     run = True
-    state = 'START'
-    last_state = 'START'
-    menu_activated = False
-    state_menu = ['LANGUAGE', 'RESET', 'RESUME']
-    state_menu_index = 0
-    resume_state = ''
+    states = {}
+    current_state : State = None
+    current_state_name = ''
 
+    resume_state = ''
     last_display_text = ''
     
     lang = 0
@@ -63,59 +72,44 @@ class Puzzlebox:
 
     def start(self):
 
-        self.state = 'START'
         self.initHardware()
+        self.initStates()
         self.gameLoop()
         self.cleanup()
 
     def stop(self):
+
         self.run = False
 
+    def transitionTo(self, state_name):
 
-    def initGame(self):
+        if (state_name != self.current_state_name):
+            if (self.current_state != None):
+                self.current_state.leave()
 
-        GPIO.output(self.IO_LED_RED_JACK, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
-        GPIO.output(self.IO_LED_GREEN_JACK, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
+            print('from ' + self.current_state_name + ' to ' + state_name)
+            self.current_state = self.states[state_name]
+            self.current_state_name = state_name
+            self.current_state.enter()
 
-        GPIO.output(self.IO_LED_RED_SWITCH, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
-        GPIO.output(self.IO_LED_GREEN_SWITCH, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
+    def initStates(self):
 
+        self.states['INIT'] = InitState(self)
+        self.states['START'] = StartState(self)
+        self.states['ROOM'] = RoomState(self)
+        self.states['PSYCHOLOGIST'] = PsychologistState(self)
+        self.states['FINAL'] = FinalState(self)
+        self.states['MENU_INIT'] = MenuInitState(self)
+        self.states['MENU'] = MenuState(self)
+        self.states['LANGUAGE'] = LanguageState(self)
+        self.states['RESET'] = ResetState(self)
+        self.states['RESUME'] = ResumeState(self)
+
+        self.transitionTo('START')
+
+    def clearChrono(self):
+        Deltatime.clear()
         self.crono = 0
-
-        self.state = 'ROOM'
-        self.play_sound('sound/relaxing.mp3')
-        self.play_sound('sound/start-' + self.languages[self.lang_select] + '.mp3')
-
-    def roomGame(self):
-
-        self.displayCounter()
-
-        self.is_jack_resolved()
-
-        self.is_button_pressed()
-
-        if self.is_pressed(self.IO_LID):
-            print("boucle")
-
-        if self.is_pressed(self.IO_SELECT):
-            self.play_sound('sound/maman-papa-' + self.languages[self.lang_select] + '.mp3')
-            self.state = 'PSYCHOLOGIST'
-
-    def psychologistGame(self):
-
-        self.displayCounter()
-
-        GPIO.output(self.IO_LED_RED_JACK, GPIO.LOW)  # Met le GPIO 17 à l’état haut (3.3V)
-        GPIO.output(self.IO_LED_GREEN_JACK, GPIO.HIGH)   # Met le GPIO 17 à l’état bas (0V)
-
-        GPIO.output(self.IO_LED_RED_SWITCH, GPIO.LOW)  # Met le GPIO 17 à l’état haut (3.3V)
-        GPIO.output(self.IO_LED_GREEN_SWITCH, GPIO.HIGH)   # Met le GPIO 17 à l’état bas (0V)
-
-
-        if self.is_pressed(self.IO_SELECT):
-            self.crono = 0
-            self.state = 'FINAL'
-
 
     def displayCounter(self):
 
@@ -124,132 +118,16 @@ class Puzzlebox:
         heure = counter.strftime("%M:%S")
         self.setDisplayText(heure)
 
-    def finalGame(self):
-
-        self.crono += Deltatime.tick()
-        self.setDisplayText(" Bravo c'est fini ")
-        if (self.crono > 10):
-            self.crono = 0
-            self.state = 'INIT'
-
-    def checkIfMenu(self):
-
-        if self.is_pressed(self.IO_MENU):
-            self.resume_state = self.state
-            self.state = 'MENU_INIT'
-
-    def menuInit(self):
-
-        self.setDisplayText("MENU")
-        time.sleep(3)
-
-
-        self.state_menu_index = 0
-        self.state = self.state_menu[self.state_menu_index]
-
-        
-    def menuLanguage(self):
-
-        if self.menu_activated:
-
-            self.setDisplayText(self.languages[self.lang_select])
-
-            if self.is_pressed(self.IO_ENTER):
-               self.lang = self.lang_select
-               self.menu_activated = False
-
-            if self.is_pressed(self.IO_SELECT):
-                self.lang_select += 1
-                if (self.lang_select > len(self.languages) - 1):
-                    self.lang_select = 0
-
-            
-        else:
-            self.setDisplayText("LA:" + self.languages[self.lang_select])
-
-            self.switchMenu()
-
-            if self.is_pressed(self.IO_ENTER):
-                self.lang_select = self.lang
-                self.menu_activated = True
-
-
-
-    def menuReset(self):
-        self.setDisplayText("RESET")
-        if self.is_pressed(self.IO_ENTER):
-            self.state = 'INIT'
-        else:
-            self.switchMenu()
-
-
-    def menuResume(self):
-
-        self.setDisplayText("RES.")
-
-        if self.is_pressed(self.IO_ENTER):
-            self.state = self.resume_state
-        else:
-            self.switchMenu()
-
-
-    def switchMenu(self):
-
-        if self.is_pressed(self.IO_SELECT):
-            self.state_menu_index += 1
-
-        if self.state_menu_index > (len(self.state_menu) - 1):
-            self.state_menu_index = 0
-
-        if self.state != self.state_menu[self.state_menu_index]:
-            self.state = self.state_menu[self.state_menu_index]
-            self.menu_activated = False
-
-            
+          
     def gameLoop(self):
 
         while(self.run):
 
-            if (self.state == 'START'):
-                self.state = 'INIT'
-                
-            elif (self.state == 'INIT'):
-                self.initGame()
-
-            elif (self.state == 'ROOM'):
-                self.roomGame()
-                self.checkIfMenu()
-
-            elif (self.state == 'PSYCHOLOGIST'):
-                self.psychologistGame()
-                self.checkIfMenu()
-
-            elif (self.state == 'FINAL'):
-                self.finalGame()
-                self.checkIfMenu()
-
-            elif (self.state == 'MENU_INIT'):
-                self.menuInit()
-
-            elif (self.state == 'MENU'):
-                self.menu()
-
-            elif (self.state == 'LANGUAGE'):
-                self.menuLanguage()
-
-            elif (self.state == 'RESET'):
-                self.menuReset()
-
-            elif (self.state == 'RESUME'):
-                self.menuResume()
-                
-            if self.state != self.last_state:
-                print(self.state)
-                self.last_state = self.state
+            if self.current_state != None:
+                self.current_state.update()
   
             Deltatime.update()
             time.sleep(.1)  # pour éviter de saturer le CPU
-
 
     def initHardware(self, bounce_ms=50):
 
@@ -311,12 +189,6 @@ class Puzzlebox:
             return None
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    
-    def is_button_pressed(self):
-        self.check_button(self.IO_BUTTON_1)
-        self.check_button(self.IO_BUTTON_2)
-        self.check_button(self.IO_BUTTON_3)
-        self.check_button(self.IO_BUTTON_4)
 
     def check_button(self, in_switch):
 
@@ -327,15 +199,6 @@ class Puzzlebox:
         if self.switchs.get(in_switch, False) != pressed:
             self.switchs[in_switch] = pressed
             print(self.switchs)
-
-    def is_jack_resolved(self):
-
-        self.check_jack(self.IO_IN_JACK_1, self.IO_OUT_JACK_1)
-        self.check_jack(self.IO_IN_JACK_2, self.IO_OUT_JACK_2)
-        self.check_jack(self.IO_IN_JACK_3, self.IO_OUT_JACK_3)
-        self.check_jack(self.IO_IN_JACK_4, self.IO_OUT_JACK_4)
-        self.check_jack(self.IO_IN_JACK_5, self.IO_OUT_JACK_5)
-
 
     def check_jack(self, in_jack, out_jack):
         
@@ -396,10 +259,14 @@ class Puzzlebox:
 
         return False
 
-    def play_sound(self, path):
-        
+    def stop_sound(self):
+
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.stop()
+
+    def play_sound(self, path):
+        
+        self.stop_sound()
 
         pygame.mixer.music.load(path)
         pygame.mixer.music.play(loops=-1)

@@ -8,6 +8,13 @@ class Deltatime:
 
     last = time.time()
 
+    def __init__(self):
+        self.clear()
+
+    @classmethod
+    def clear(cls):
+        last = time.time()
+
     @classmethod
     def tick(cls):
         return (time.time() - cls.last)
