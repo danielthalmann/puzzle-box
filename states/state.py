@@ -1,10 +1,13 @@
-from ..puzzlebox import Puzzlebox
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from puzzlebox import Puzzlebox
 
 class State:
-
+   
     machine = None
 
-    def __init__(self, stateMachine : Puzzlebox):
+    def __init__(self, stateMachine : 'Puzzlebox'):
         self.machine = stateMachine
 
     def enter(self):

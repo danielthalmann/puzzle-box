@@ -1,8 +1,11 @@
-from state import State
+from states.state import State
 
+##
+## Start game
 class StartState(State):
+
     def enter(self):
-        print("enter")
+        self.machine.initHardware()
 
     def update(self):
-        print("update")
+        self.machine.transitionTo('INIT')

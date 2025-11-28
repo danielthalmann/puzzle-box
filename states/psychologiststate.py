@@ -1,6 +1,6 @@
-from state import State
+from states.state import State
 import RPi.GPIO as GPIO
-from ..deltatime import Deltatime
+from deltatime import Deltatime
 
 class PsychologistState(State):
 

@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from state import State
+from states.state import State
 
 class InitState(State):
     def enter(self):
@@ -10,7 +10,7 @@ class InitState(State):
         GPIO.output(self.machine.IO_LED_RED_SWITCH, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
         GPIO.output(self.machine.IO_LED_GREEN_SWITCH, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
 
-        self.machine.setDisplayText("Prêt ?")
+        self.machine.setDisplayText("READY")
 
     def update(self):
 

@@ -1,5 +1,5 @@
-from state import State
-from ..deltatime import Deltatime
+from states.state import State
+from deltatime import Deltatime
 
 class FinalState(State):
 
@@ -9,7 +9,8 @@ class FinalState(State):
 
         Deltatime.clear()
         self.crono = 0
-        self.machine.setDisplayText(" Bravo c'est fini ")
+        self.machine.setDisplayText(" END ")
+        self.machine.stop_sound()
 
     def update(self):
 

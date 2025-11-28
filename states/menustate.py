@@ -1,4 +1,4 @@
-from state import State
+from states.state import State
 
 class MenuState(State):
 

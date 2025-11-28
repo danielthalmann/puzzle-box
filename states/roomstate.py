@@ -1,5 +1,5 @@
-from state import State
-from ..deltatime import Deltatime
+from states.state import State
+from deltatime import Deltatime
 
 class RoomState(State):
 

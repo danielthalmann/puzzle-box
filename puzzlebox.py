@@ -72,7 +72,6 @@ class Puzzlebox:
 
     def start(self):
 
-        self.initHardware()
         self.initStates()
         self.gameLoop()
         self.cleanup()
@@ -173,7 +172,7 @@ class Puzzlebox:
         GPIO.output(self.IO_OUT_LED, GPIO.HIGH)
 
         self.initJackOutput()
-        self.initSwitch()
+        self.initButtons()
 
         pygame.mixer.init()
 
@@ -196,9 +195,11 @@ class Puzzlebox:
         if self.is_pressed(in_switch, True):
             pressed = True
 
-        if self.switchs.get(in_switch, False) != pressed:
-            self.switchs[in_switch] = pressed
-            print(self.switchs)
+        if self.buttons.get(in_switch, False) != pressed:
+            self.buttons[in_switch] = pressed
+            print(self.buttons)
+
+        return pressed
 
     def check_jack(self, in_jack, out_jack):
         
@@ -229,8 +230,8 @@ class Puzzlebox:
         GPIO.output(self.IO_OUT_JACK_4, GPIO.LOW)
         GPIO.output(self.IO_OUT_JACK_5, GPIO.LOW)
 
-    def initSwitch(self):
-        self.switchs = {self.IO_BUTTON_1: False, self.IO_BUTTON_2: False, self.IO_BUTTON_3: False, self.IO_BUTTON_4: False}
+    def initButtons(self):
+        self.buttons = {self.IO_BUTTON_1: False, self.IO_BUTTON_2: False, self.IO_BUTTON_3: False, self.IO_BUTTON_4: False}
 
     def is_pressed(self, io, maintain = False):
         now = time.time()
