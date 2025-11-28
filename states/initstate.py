@@ -10,6 +10,7 @@ class InitState(State):
         GPIO.output(self.machine.IO_LED_RED_SWITCH, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
         GPIO.output(self.machine.IO_LED_GREEN_SWITCH, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
 
+        self.machine.play_sound('sound/start.mp3')
         self.machine.setDisplayText("READY")
 
     def update(self):

@@ -14,6 +14,6 @@ class MenuInitState(State):
     def update(self):
 
         self.crono += Deltatime.tick()
-        if (self.crono > 5):
+        if (self.crono > 2):
             self.crono = 0
             self.machine.transitionTo('MENU')

@@ -10,12 +10,13 @@ class FinalState(State):
         Deltatime.clear()
         self.crono = 0
         self.machine.setDisplayText(" END ")
-        self.machine.stop_sound()
+        self.machine.play_sound('sound/final.mp3')
+        #self.machine.stop_sound()
 
     def update(self):
 
         self.crono += Deltatime.tick()
-        if (self.crono > 10):
+        if (self.crono > 25):
             self.crono = 0
             self.machine.transitionTo('INIT')
 

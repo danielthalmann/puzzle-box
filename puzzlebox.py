@@ -30,8 +30,7 @@ class Puzzlebox:
     resume_state = ''
     last_display_text = ''
     
-    lang = 0
-    lang_select = 0
+    lang = 1
     languages = ['FR', 'DE']
 
     crono = 0
@@ -69,6 +68,9 @@ class Puzzlebox:
     IO_IN_JACK_5 = 8 # legacy 2
 
     IO_OUT_LED = 5
+
+    IO_IN_SWITCH = 16
+
 
     def start(self):
 
@@ -155,6 +157,7 @@ class Puzzlebox:
         GPIO.setup(self.IO_BUTTON_4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
         GPIO.setup(self.IO_LID, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.IO_IN_SWITCH, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
         # GPIO en sortie
         GPIO.setup(self.IO_LED_RED_JACK, GPIO.OUT)
