@@ -276,6 +276,9 @@ class Puzzlebox:
         pygame.mixer.music.load(path)
         pygame.mixer.music.play(loops=-1)
 
+    def sound_volume(self, value):
+
+        pygame.mixer.music.set_volume(value)
 
     def setDisplayText(self, text):
         filename = './.exchange'
