@@ -23,6 +23,11 @@ class InitState(State):
         if self.is_button_pressed():
             self.machine.transitionTo('ROOM')
 
+        if self.machine.is_pressed(self.machine.IO_MENU):
+    
+            self.machine.transitionTo('MENU_INIT')
+
+
     def is_button_pressed(self):
 
         if self.machine.check_button(self.machine.IO_BUTTON_1):
@@ -39,4 +44,4 @@ class InitState(State):
     def leave(self):
 
         self.machine.clearChrono()
-
+        self.machine.resume_state = 'INIT'
