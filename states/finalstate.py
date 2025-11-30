@@ -11,6 +11,7 @@ class FinalState(State):
         self.crono = 0
         self.machine.setDisplayText(" END ")
         self.machine.play_sound('sound/final.mp3')
+        self.machine.sound_volume(1)
         #self.machine.stop_sound()
 
     def update(self):

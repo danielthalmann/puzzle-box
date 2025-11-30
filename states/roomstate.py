@@ -35,10 +35,10 @@ class RoomState(State):
                 self.machine.sound_volume(.8)
             else:
                 if (self.time > (5 * 60)):
-                    self.machine.sound_volume(.6)
+                    self.machine.sound_volume(.7)
                 else:
                     if (self.time > (2 * 60)):
-                        self.machine.sound_volume(.4)
+                        self.machine.sound_volume(.6)
 
     def leave(self):
         self.machine.resume_state = 'ROOM'

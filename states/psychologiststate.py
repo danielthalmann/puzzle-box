@@ -23,9 +23,9 @@ class PsychologistState(State):
         self.index = 0
         self.check_state = 0
         self.machine.initJackOutput()
-
-        self.machine.sound_volume(1)
+        
         self.machine.play_sound('sound/maman-papa-' + self.machine.languages[self.machine.lang] + '.mp3')
+        self.machine.sound_volume(1)
 
         GPIO.output(self.machine.IO_LED_RED_JACK, GPIO.LOW)  # Met le GPIO 17 à l’état haut (3.3V)
         GPIO.output(self.machine.IO_LED_GREEN_JACK, GPIO.HIGH)   # Met le GPIO 17 à l’état bas (0V)

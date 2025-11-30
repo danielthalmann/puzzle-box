@@ -16,6 +16,7 @@ class InitState(State):
         self.machine.check_button(self.machine.IO_BUTTON_4)
 
         self.machine.play_sound('sound/start.mp3')
+        self.machine.sound_volume(1)
         self.machine.setDisplayText("READY")
 
     def update(self):
