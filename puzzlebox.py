@@ -37,7 +37,7 @@ class Puzzlebox:
 
     process = None
 
-    debug = True
+    debug = False
 
     # GPIO const
     IO_MENU = 13

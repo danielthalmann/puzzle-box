@@ -103,11 +103,12 @@ class PsychologistState(State):
         if (self.check_state == 2):
             newValue = self.machine.check_jack(self.jacks[self.index]['in_jack'], self.jacks[self.index]['out_jack'], False)
 
-            if self.machine.debug:
-                if  newValue:
-                    for i in range(len(self.jacks)):
-                        print(str(i) + ':' + str(self.jacks[i]['value']))
-
+            # disable code 
+            # if self.machine.debug:
+            #     if  newValue:
+            #         for i in range(len(self.jacks)):
+            #             print(str(i) + ':' + str(self.jacks[i]['value']))
+# 
             self.jacks[self.index]['value'] = newValue
 
             self.check_state = 0
