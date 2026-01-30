@@ -33,7 +33,9 @@ class Puzzlebox:
     lang = 0
     languages = ['FR', 'DE']
 
+    initial_crono = 60 * 60
     crono = 0
+    last_crono = ''
 
     process = None
 
@@ -113,13 +115,22 @@ class Puzzlebox:
 
     def clearChrono(self):
         Deltatime.clear()
-        self.crono = 0
+        self.crono = self.initial_crono
+        self.last_crono = ''
+
+    def isCronoFinish(self):
+        if self.crono == 0:
+            return True
+        else:
+            return False
 
     def displayCounter(self):
-
-        self.crono += Deltatime.tick()
+        self.crono -= Deltatime.tick()
+        if self.crono < 0:
+            self.crono = 0
         counter = datetime(1, 1, 1) + Deltatime.delta(seconds=self.crono)
         heure = counter.strftime("%M:%S")
+        self.last_crono = heure
         self.setDisplayText(heure)
 
           
@@ -269,12 +280,12 @@ class Puzzlebox:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.stop()
 
-    def play_sound(self, path):
+    def play_sound(self, path, loop = -1):
         
         self.stop_sound()
 
         pygame.mixer.music.load(path)
-        pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.play(loops= loop)
 
     def sound_volume(self, value):
 

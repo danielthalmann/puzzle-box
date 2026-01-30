@@ -39,12 +39,19 @@ class PsychologistState(State):
 
         if self.jack_ok and self.switch_ok and self.is_button_pressed():
             self.machine.transitionTo('FINAL')
+            return
 
         if self.machine.is_pressed(self.machine.IO_SELECT):
             self.machine.transitionTo('FINAL')
+            return
+
+        if self.machine.isCronoFinish():
+            self.machine.transitionTo('FINAL')
+            return
 
         if self.machine.is_pressed(self.machine.IO_MENU):
             self.machine.transitionTo('MENU_INIT')
+            return
 
         self.updateJackState()
 

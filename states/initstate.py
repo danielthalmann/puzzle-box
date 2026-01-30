@@ -1,8 +1,15 @@
 import RPi.GPIO as GPIO
 from states.state import State
+from deltatime import Deltatime
 
 class InitState(State):
+
+    local_crono = 0
+
     def enter(self):
+
+        self.local_crono = 0
+        Deltatime.clear()
 
         GPIO.output(self.machine.IO_LED_RED_JACK, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
         GPIO.output(self.machine.IO_LED_GREEN_JACK, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
@@ -10,34 +17,33 @@ class InitState(State):
         GPIO.output(self.machine.IO_LED_RED_SWITCH, GPIO.HIGH)  # Met le GPIO 17 à l’état haut (3.3V)
         GPIO.output(self.machine.IO_LED_GREEN_SWITCH, GPIO.LOW)   # Met le GPIO 17 à l’état bas (0V)
 
-        self.machine.check_button(self.machine.IO_BUTTON_1)
-        self.machine.check_button(self.machine.IO_BUTTON_2)
-        self.machine.check_button(self.machine.IO_BUTTON_3)
-        self.machine.check_button(self.machine.IO_BUTTON_4)
-
         self.machine.play_sound('sound/start.mp3')
         self.machine.sound_volume(1)
         self.machine.setDisplayText("READY")
 
     def update(self):
 
-        if self.is_button_pressed():
-            self.machine.transitionTo('ROOM')
+        if (self.local_crono < 2):
+            self.local_crono += Deltatime.tick()
+        else:
+            if self.is_button_pressed():
+                self.machine.transitionTo('ROOM')
+                return
 
         if self.machine.is_pressed(self.machine.IO_MENU):
-    
             self.machine.transitionTo('MENU_INIT')
+            return
 
 
     def is_button_pressed(self):
 
-        if self.machine.check_button(self.machine.IO_BUTTON_1):
+        if self.machine.is_pressed(self.machine.IO_BUTTON_1):
             return True
-        if self.machine.check_button(self.machine.IO_BUTTON_2):
+        if self.machine.is_pressed(self.machine.IO_BUTTON_2):
             return True
-        if self.machine.check_button(self.machine.IO_BUTTON_3):
+        if self.machine.is_pressed(self.machine.IO_BUTTON_3):
             return True
-        if self.machine.check_button(self.machine.IO_BUTTON_4):
+        if self.machine.is_pressed(self.machine.IO_BUTTON_4):
             return True
         
         return False
