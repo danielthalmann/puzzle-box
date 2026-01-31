@@ -24,7 +24,8 @@ class PsychologistState(State):
         self.check_state = 0
         self.machine.initJackOutput()
         
-        self.machine.play_sound('sound/maman-papa-' + self.machine.languages[self.machine.lang] + '.mp3')
+        # self.machine.play_sound('sound/maman-papa-' + self.machine.languages[self.machine.lang] + '.mp3')
+        self.machine.stop_sound()
         self.machine.sound_volume(1)
 
         GPIO.output(self.machine.IO_LED_RED_JACK, GPIO.LOW)  # Met le GPIO 17 à l’état haut (3.3V)
@@ -60,6 +61,11 @@ class PsychologistState(State):
 
         if self.is_switch_resolved():
             self.switch_ok = True
+
+        if not (self.jack_ok and self.switch_ok) and self.machine.is_pressed(self.machine.IO_BUTTON_3):
+            self.machine.play_sound('sound/maman-' + self.machine.languages[self.machine.lang] + '.mp3', 0)
+        if not (self.jack_ok and self.switch_ok) and self.machine.is_pressed(self.machine.IO_BUTTON_4):
+            self.machine.play_sound('sound/papa-' + self.machine.languages[self.machine.lang] + '.mp3', 0)
 
 
     def is_button_pressed(self):
