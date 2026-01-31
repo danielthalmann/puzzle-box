@@ -6,6 +6,7 @@ class FinalState(State):
 
     local_crono = 0
     light_on = False
+    last_blink = False
 
     def enter(self):
 
@@ -29,8 +30,7 @@ class FinalState(State):
         if (self.local_crono > 8):
             self.machine.setDisplayText(self.machine.last_crono)
 
-        if (int(self.local_crono) % 2 == 0):
-            self.switchLight()
+        self.switchLight()
         
 
     def switchLight(self):
