@@ -1,9 +1,21 @@
 # Notice d'utilisation de l'Escape box
 
+- [Notice d'utilisation de l'Escape box](#notice-dutilisation-de-lescape-box)
+  - [Bouton accessible à l'intérieur de la box](#bouton-accessible-à-lintérieur-de-la-box)
+  - [Allumer la boite](#allumer-la-boite)
+  - [Éteindre la boite](#éteindre-la-boite)
+  - [Démarrer une partie](#démarrer-une-partie)
+  - [Fin de la partie](#fin-de-la-partie)
+  - [Entrer dans le menu de configuration](#entrer-dans-le-menu-de-configuration)
+  - [Modifier la langue depuis le menu de configuration](#modifier-la-langue-depuis-le-menu-de-configuration)
+  - [Reprendre le jeu depuis le menu de configuration](#reprendre-le-jeu-depuis-le-menu-de-configuration)
+  - [Re-initialiser le jeu](#re-initialiser-le-jeu)
+
+
 ## Bouton accessible à l'intérieur de la box
 
 De gauche à droite, il y a les boutons.
-noir (1) <span style="color:blue">bleu</span> (2) <span style="color:green">vert</span> (3) <span style="color:red">rouge</span> (4) qui permettent de commander la box.
+noir (1. allumage) <span style="color:blue">bleu</span> (2. menu) <span style="color:green">vert</span> (3. sélection) <span style="color:red">rouge</span> (4. validation) qui permettent de commander la box.
 
 ## Allumer la boite
 
@@ -21,7 +33,7 @@ Le chronomètre est alors démarrer sur 60 minutes.
 
 ## Fin de la partie
 
-Lorsque le chronomètre est arrivé à 0 ou que toutes les énigmes ont été réussi, la partie et terminée. L'affichage indique [WIN\] ou [LOSE\] pendant 8 secondes.
+Lorsque le chronomètre arrive à 0 ou que toutes les énigmes ont été réussies, la partie est terminée. L'affichage indique [WIN\] ou [LOSE\] pendant 8 secondes.
 
 Après 8 secondes, l'affichage indique à nouveau la valeur du chronomètre.
 
@@ -29,9 +41,16 @@ Après 15 secondes, presser sur n'importe lequel des boutons poussoir rouge à l
 
 ## Entrer dans le menu de configuration
 
+Le menu de configuration permet de changer la langue et réinitialisé le jeu.
+
 Presser une fois sur le bouton <span style="color:blue">bleu</span> (2).
 
-L'affichage indique pendant 2 seconde le texte \[MENU\] puis affiche la première option du menu de configuration [LANG\].
+L'affichage indique pendant 2 secondes le texte \[MENU\] puis affiche la première option du menu de configuration [LANG\].
+
+En pressant sur le bouton <span style="color:green">vert</span> (3), on défile les points de menu [LANG\], [RESUME\] et [RESET\].
+
+pour sélectionner l'un des points de menu, il faut presser sur le bouton <span style="color:red">rouge</span> (4).
+
 
 ## Modifier la langue depuis le menu de configuration
 
@@ -41,12 +60,11 @@ Si vous êtes déjà dans le menu de configuration, presser plusieurs fois le bo
 
 Presser une fois sur le bouton <span style="color:red">rouge</span> (4) pour valider la sélection courante.
 
-L'affichage indique la langue actuellement sélectionné. 
-\[LA:FR\] ou \[LA:DE\].
+L'affichage indique la langue actuellement sélectionnée : \[LA:FR\] ou \[LA:DE\].
 
 Modifier la sélection de la langue en pressant sur le bouton <span style="color:green">vert</span> (3).
 
-Valider vôtre choix avec le bouton <span style="color:red">rouge</span> (4)
+Valider vôtre choix avec le bouton <span style="color:red">rouge</span> (4).
 
 L'affichage indique à nouveau \[LANG\].
 
@@ -64,5 +82,6 @@ Si vous n'êtes pas dans le menu de configuration, suivre les indications pour e
 
 Presser plusieurs fois le bouton <span style="color:green">vert</span> (3) jusqu'à ce que l'affichage indique \[RESET\].
 
-L'affichage indique \[OK\] pendant 3 secondes et re-initialise le jeu.
+Presser une fois sur le bouton <span style="color:red">rouge</span> (4) pour valider la sélection courante.
 
+L'affichage indique \[OK\] pendant 3 secondes et re-initialise le jeu.
