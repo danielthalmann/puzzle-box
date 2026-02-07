@@ -28,3 +28,9 @@ save required packages
 ```bash
 pip freeze > requirements.txt
 ```
+
+before run service, make the file .exchange with local user
+
+```bash
+touch .exchange
+```
